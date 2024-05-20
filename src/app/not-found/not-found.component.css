@@ -1,0 +1,48 @@
+/* Container for the 404 page */
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #fafafa;
+  }
+  
+  /* Box for the 404 message */
+  .not-found-box {
+    text-align: center;
+    padding: 40px;
+    background: #fff;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+  }
+  
+  /* Instagram logo styling */
+  .logo {
+    font-family: 'Billabong', sans-serif;
+    font-size: 3rem;
+    color: #262626;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for the error message */
+  h2 {
+    font-size: 24px;
+    color: #262626;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 14px;
+    color: #8e8e8e;
+  }
+  
+  a {
+    color: #0095f6;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

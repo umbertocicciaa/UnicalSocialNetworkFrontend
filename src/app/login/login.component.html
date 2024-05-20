@@ -1,0 +1,47 @@
+<div class="login-container">
+    <div class="login-box">
+      <h1 class="logo">Social Newtork</h1>
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="input-group">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [(ngModel)]="username"
+            required
+            placeholder="Phone number, username, or email"
+            #usernameInput="ngModel"
+          />
+        </div>
+        <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error">
+          Username is required
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            placeholder="Password"
+            #passwordInput="ngModel"
+          />
+          <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error">
+            Password is required
+          </div>
+        </div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <button type="submit" class="login-btn" [disabled]="!loginForm.valid">Log In</button>
+      </form>
+      <div class="or-container">
+        <div class="line"></div>
+        <div class="or">OR</div>
+        <div class="line"></div>
+      </div>
+      <a [routerLink]="" class="forgot-password">Forgot password?</a>
+    </div>
+    <div class="signup-box">
+      <p>Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+  </div>
+  

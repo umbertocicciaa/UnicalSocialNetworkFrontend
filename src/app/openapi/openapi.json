@@ -1,0 +1,1256 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenApi specification - Backend PSW24",
+    "description": "Documentazione backend social network PSW24",
+    "contact": {
+      "name": "Umberto Domenico Ciccia",
+      "email": "umbertociccia@icloud.com"
+    },
+    "version": "1.0"
+  },
+  "servers": [{ "url": "http://localhost:8080", "description": "Local" }],
+  "security": [{ "bearerAuth": [] }],
+  "paths": {
+    "/api/v1/Post/posts/posts/likes": {
+      "put": {
+        "tags": ["Post"],
+        "operationId": "addLike",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AddLikeRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/posts/twits": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPostsOfTypeTwit",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PostResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "post": {
+        "tags": ["Post"],
+        "operationId": "createTwit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/TwitCreateRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/TwitCreatedRespose" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/posts/posts": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPostsOfTypePost",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PostResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      },
+      "post": {
+        "tags": ["Post"],
+        "operationId": "createPost",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PostCreateRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/PostCreatedResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Message/messages": {
+      "post": {
+        "tags": ["Message"],
+        "operationId": "publish",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MessageRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": { "description": "OK" }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Follower/follow": {
+      "post": {
+        "tags": ["Follower"],
+        "operationId": "follow",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/FollowerRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowerCreatedResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Comment/comments": {
+      "post": {
+        "tags": ["Comment"],
+        "operationId": "createComment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CommentCreateRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentCreatedResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RegisterRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/Auth/refresh-token": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "refreshToken",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/api/v1/Auth/authenticate": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "authenticate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/AuthenticationRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/User/users": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getUsers",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/User/users/{id}": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getUsersById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/User/users/username": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getUserLikeUsername",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/User/users/username/{username}": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getUserByUsername",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/User/total-users": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getTotalUsers",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/UserCountResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/User/ordered-users": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getUsersOrderedBySignUp",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/UserResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/User/logged-users": {
+      "get": {
+        "tags": ["User"],
+        "operationId": "getLoggedUsers",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/UserResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/total-posts": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPostsTotal",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/PostCountResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/total-posts/{user_id}": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "countPostsByUserId",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/PostByUserResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/posts": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPosts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32", "default": 0 }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/PostResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/posts/{id}": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPostsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/PostResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Mipiace/mipiace/{post_Id}": {
+      "get": {
+        "tags": ["Mipiace"],
+        "operationId": "exists",
+        "parameters": [
+          {
+            "name": "post_Id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsisteMipiaceResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Follower/following/{user}/{userToFollow}": {
+      "get": {
+        "tags": ["Follower"],
+        "operationId": "isFollowing",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "userToFollow",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/IsFollowingResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Follower/following-total/{user_id}": {
+      "get": {
+        "tags": ["Follower"],
+        "operationId": "countFollowing",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowingNumberResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Follower/followers-total/{user_id}": {
+      "get": {
+        "tags": ["Follower"],
+        "operationId": "countFollowers",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowerNumberResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Comment/comments/{post_id}": {
+      "get": {
+        "tags": ["Comment"],
+        "operationId": "getComment",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/CommentResponse" }
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Post/posts/{postId}": {
+      "delete": {
+        "tags": ["Post"],
+        "operationId": "deletePost",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int64" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": { "$ref": "#/components/schemas/PostDeletedResponse" }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/api/v1/Comment/comments/{comment_id}": {
+      "delete": {
+        "tags": ["Comment"],
+        "operationId": "deleteComment",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentDeletedResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearerAuth": [] }]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddLikeRequest": {
+        "required": ["postId"],
+        "type": "object",
+        "properties": { "postId": { "type": "integer", "format": "int32" } }
+      },
+      "PostResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "userId": { "type": "integer", "format": "int32" },
+          "postType": { "type": "string" },
+          "caption": { "type": "string" },
+          "like": { "type": "integer", "format": "int32" },
+          "image": {
+            "type": "array",
+            "items": { "type": "string", "format": "byte" }
+          }
+        }
+      },
+      "TwitCreateRequest": {
+        "type": "object",
+        "properties": { "caption": { "type": "string" } }
+      },
+      "TwitCreatedRespose": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "postId": { "type": "integer", "format": "int32" },
+          "userId": { "type": "integer", "format": "int32" },
+          "caption": { "type": "string" },
+          "like": { "type": "integer", "format": "int32" }
+        }
+      },
+      "PostCreateRequest": {
+        "type": "object",
+        "properties": {
+          "caption": { "type": "string" },
+          "mediaFile": {
+            "type": "array",
+            "items": { "type": "string", "format": "byte" }
+          }
+        }
+      },
+      "PostCreatedResponse": {
+        "type": "object",
+        "properties": {
+          "pics": {
+            "type": "array",
+            "items": { "type": "string", "format": "byte" }
+          },
+          "id": { "type": "integer", "format": "int32" },
+          "userId": { "type": "integer", "format": "int32" },
+          "caption": { "type": "string" },
+          "postType": { "type": "string" },
+          "like": { "type": "integer", "format": "int32" }
+        }
+      },
+      "MessageRequest": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } }
+      },
+      "FollowerRequest": {
+        "required": ["userId"],
+        "type": "object",
+        "properties": { "userId": { "type": "integer", "format": "int32" } }
+      },
+      "FollowerCreatedResponse": {
+        "type": "object",
+        "properties": {
+          "followerUserEntity": { "type": "integer", "format": "int32" },
+          "followingUserEntity": { "type": "integer", "format": "int32" }
+        }
+      },
+      "CommentCreateRequest": {
+        "required": ["comment", "postId"],
+        "type": "object",
+        "properties": {
+          "commentRepliedId": { "type": "integer", "format": "int32" },
+          "postId": { "type": "integer", "format": "int32" },
+          "comment": { "type": "string" }
+        }
+      },
+      "CommentCreatedResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "commentRepliedId": { "type": "integer", "format": "int32" },
+          "createdByUserid": { "type": "integer", "format": "int32" },
+          "postId": { "type": "integer", "format": "int32" },
+          "createdDate": { "type": "string", "format": "date-time" },
+          "comment": { "type": "string" }
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "firstname": { "type": "string" },
+          "lastname": { "type": "string" },
+          "profilename": { "type": "string" },
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "AuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "access_token": { "type": "string" },
+          "refresh_token": { "type": "string" }
+        }
+      },
+      "AuthenticationRequest": {
+        "type": "object",
+        "properties": {
+          "username": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "profileName": { "type": "string" },
+          "email": { "type": "string" },
+          "signupDate": { "type": "string", "format": "date-time" },
+          "profilePicture": {
+            "type": "array",
+            "items": { "type": "string", "format": "byte" }
+          },
+          "bio": { "type": "string" }
+        }
+      },
+      "UserCountResponse": {
+        "type": "object",
+        "properties": { "count": { "type": "integer", "format": "int64" } }
+      },
+      "PostCountResponse": {
+        "type": "object",
+        "properties": { "postCount": { "type": "integer", "format": "int64" } }
+      },
+      "PostByUserResponse": {
+        "type": "object",
+        "properties": { "post": { "type": "integer", "format": "int64" } }
+      },
+      "EsisteMipiaceResponse": {
+        "type": "object",
+        "properties": { "esisteMiPiace": { "type": "boolean" } }
+      },
+      "IsFollowingResponse": {
+        "type": "object",
+        "properties": { "following": { "type": "boolean" } }
+      },
+      "FollowingNumberResponse": {
+        "type": "object",
+        "properties": {
+          "followingNumber": { "type": "integer", "format": "int32" }
+        }
+      },
+      "FollowerNumberResponse": {
+        "type": "object",
+        "properties": {
+          "followerNumber": { "type": "integer", "format": "int32" }
+        }
+      },
+      "CommentResponse": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "createdByUserid": { "type": "integer", "format": "int32" },
+          "postId": { "type": "integer", "format": "int32" },
+          "createdDatetime": { "type": "string", "format": "date-time" },
+          "comment": { "type": "string" }
+        }
+      },
+      "PostDeletedResponse": {
+        "type": "object",
+        "properties": { "deleted": { "type": "boolean" } }
+      },
+      "CommentDeletedResponse": {
+        "type": "object",
+        "properties": { "deleted": { "type": "boolean" } }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "JWT auth description",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
