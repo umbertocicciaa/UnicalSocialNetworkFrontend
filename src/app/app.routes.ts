@@ -7,6 +7,11 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 
 export const routes: Routes = [
   {
+    path: "",
+    redirectTo: "login",
+    pathMatch: "full",
+  },
+  {
     path: "login",
     component: LoginComponent,
   },
