@@ -1,1 +1,79 @@
-<p>register works!</p>
+<div class="register-container">
+  <div class="register-box">
+    <h1 class="logo">Social Network</h1>
+    <p class="subheading">Sign up to see photos and videos from your friends.</p>
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+      <div class="input-group">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="email"
+          required email
+          placeholder="Email"
+          #Email="ngModel"
+        />
+        <div *ngIf="Email.invalid && Email.touched" class="alert">Inserisci una e-mail corretta</div>
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          id="firstname"
+          name="firstname"
+          [(ngModel)]="firstname"
+          required
+          placeholder="First Name"
+          #Firstname="ngModel"
+        />
+        <div *ngIf="Firstname.invalid && Firstname.touched" class="alert">Firstname is required.</div>
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          id="lastname"
+          name="lastname"
+          [(ngModel)]="lastname"
+          required
+          placeholder="Last Name"
+          #Lastname="ngModel"
+        />
+        <div *ngIf="Lastname.invalid && Lastname.touched" class="alert">Lastname is required.</div>
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          id="username"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Username"
+          #Username = "ngModel"
+        />
+        <div *ngIf="Username.invalid && Username.touched" class="alert">Username is required.</div>
+      </div>
+      <div class="input-group">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="4"
+          placeholder="Password"
+          #Password ="ngModel"
+        />
+        <div *ngIf="(Password.errors?.['minlength'] || Password.invalid) && Password.touched" class="alert">
+          Password must be at least 4 characters long.</div>
+      </div>
+      <button
+        type="submit"
+        class="register-btn"
+        [disabled]="!registerForm.valid"
+      >Sign Up</button>
+      <div *ngIf="errorMessage" class = alert>{{errorMessage}}</div> 
+    </form>
+  </div>
+  <div class="login-box">
+    <p>Have an account? <a [routerLink]="['/login']">Log in</a> </p>
+  </div>
+</div>
