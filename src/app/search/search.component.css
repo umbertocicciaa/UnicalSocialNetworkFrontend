@@ -1,0 +1,76 @@
+/* Container for the search functionality */
+.search-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Search box styling */
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.2%;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+/* Results box styling */
+.results-box {
+  margin-top: 10px;
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #dbdbdb;
+  cursor: pointer;
+}
+
+.result-item:hover {
+  background-color: #f1f1f1;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.full-name {
+  font-size: 12px;
+  color: #8e8e8e;
+}
+
+/* No results found message styling */
+.no-results {
+  text-align: center;
+  margin-top: 10px;
+  color: #8e8e8e;
+  font-size: 14px;
+}

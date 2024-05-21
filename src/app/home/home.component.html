@@ -1,1 +1,19 @@
-<p>home works!</p>
+<mat-drawer-container class="example-container">
+      <mat-drawer  mode="side" opened>
+        <div class="logo">Social Network</div>
+        <ul class="nav-list">
+          <li class="nav-item"><a [routerLink]="['/home']" class="nav-link">Home</a></li>
+          <li class="nav-item"><a [routerLink]="['/home/search']" class="nav-link">Search</a></li>
+          <li class="nav-item"><a [routerLink]="['/home/explore']" class="nav-link">Explore</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Messages</a></li>
+          <li class="nav-item"><a [routerLink]="['/home/createPost']" class="nav-link">Create Post</a></li>
+          <li class="nav-item"><a [routerLink]="['/home/createTwit']" class="nav-link">Create Twit</a></li>
+          <li class="nav-item"><a [routerLink]="['/home/profile']" class="nav-link">Profile</a></li>
+          <li class="nav-item"><p>Logout</p></li>
+        </ul>
+      </mat-drawer>
+      <mat-drawer-content>
+       <router-outlet></router-outlet>
+      </mat-drawer-content>
+</mat-drawer-container>
+  

@@ -1,0 +1,86 @@
+/* Container for the profile page */
+.profile-container {
+  margin: 10px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+}
+
+/* Header section styling */
+.profile-header {
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-username {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-username h2 {
+  font-size: 28px;
+  margin: 0;
+}
+
+.edit-profile-btn {
+  margin-left: 20px;
+  padding: 5px 9px;
+  font-size: 14px;
+  border: 1px solid #dbdbdb;
+  background-color: #fafafa;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.profile-stats {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.profile-stats li {
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+.profile-bio {
+  font-size: 16px;
+}
+
+.profile-bio strong {
+  display: block;
+  font-weight: bold;
+}
+
+/* Posts section styling */
+.profile-posts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.post {
+  position: relative;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+}

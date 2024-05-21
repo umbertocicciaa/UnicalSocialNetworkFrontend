@@ -1,0 +1,40 @@
+.create-tweet-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tweet-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.file-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.image-preview {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.image-preview img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+}

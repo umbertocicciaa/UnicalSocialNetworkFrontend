@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
-
+import { Component } from "@angular/core";
+import { RouterModule } from "@angular/router";
+import { MatSidenavModule } from "@angular/material/sidenav";
 @Component({
-  selector: 'app-home',
+  selector: "app-home",
   standalone: true,
-  imports: [],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  imports: [RouterModule, MatSidenavModule],
+  templateUrl: "./home.component.html",
+  styleUrl: "./home.component.css",
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

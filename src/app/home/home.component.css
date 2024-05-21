@@ -1,0 +1,110 @@
+/* Container for the entire home page */
+.example-container {
+  height: 100%;
+  width: auto;
+  background-color: #fff;
+  padding: 20px;
+}
+/* Sidebar styling */
+.sidebar {
+  width: 250px;
+  background-color: #fff;
+  border-right: 1px solid #dbdbdb;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.logo {
+  font-family: "Billabong", sans-serif;
+  font-size: 2.5rem;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  color: #262626;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-item {
+  margin-bottom: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #262626;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link:hover {
+  color: #0095f6;
+}
+
+/* Main content styling */
+.content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.posts {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Individual post styling */
+.post {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 20px;
+  border-radius: 3px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.post-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post-user {
+  font-weight: bold;
+}
+
+.post-image {
+  width: 100%;
+  display: block;
+}
+
+.post-actions {
+  display: flex;
+  padding: 10px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: #262626;
+  font-size: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  color: #0095f6;
+}
+
+.post-caption {
+  padding: 10px;
+  font-size: 14px;
+}

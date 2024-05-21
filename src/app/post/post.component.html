@@ -1,0 +1,29 @@
+<div class="post">
+    <div class="post-header">
+      <img [src]="post.user.avatar" alt="User Avatar" class="avatar" />
+      <div class="user-info">
+        <div class="username">{{ post.user.username }}</div>
+        <div class="location">{{ post.location }}</div>
+      </div>
+    </div>
+    <img [src]="post.image" alt="Post Image" class="post-image" />
+    <div class="post-actions">
+      <button (click)="likePost(post)" class="action-btn">
+        Like
+        <i class="fa fa-thumbs-up" [class.liked]="post.liked"></i>
+      </button>
+      <button (click)="toggleComments(post)" class="action-btn">
+        <i class="fa fa-comment"></i>
+      </button>
+    </div>
+    <div class="post-likes">{{ post.likes }} likes</div>
+    <div class="post-caption">
+      <strong>{{ post.user.username }}</strong> {{ post.caption }}
+    </div>
+    <div class="post-comments" *ngIf="post.showComments">
+      <div *ngFor="let comment of post.comments" class="comment">
+        <strong>{{ comment.user }}</strong> {{ comment.text }}
+      </div>
+    </div>
+    <button *ngIf="post.comments.length > 0 && !post.showComments" (click)="toggleComments(post)" class="view-comments-btn">View Comments</button>
+</div>

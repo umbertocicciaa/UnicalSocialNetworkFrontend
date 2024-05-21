@@ -1,0 +1,25 @@
+<div class="search-container">
+    <div class="search-box">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search"
+        [(ngModel)]="query"
+        (input)="onSearch()"
+      />
+    </div>
+    <div class="results-box" *ngIf="results.length > 0">
+      <ul class="results-list">
+        <li *ngFor="let user of results" class="result-item">
+          <img [src]="user.avatar" alt="User Avatar" class="avatar" />
+          <div class="user-info">
+            <div class="username">{{ user.username }}</div>
+            <div class="full-name">{{ user.fullName }}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="no-results" *ngIf="results.length === 0 && query">
+      No results found.
+    </div>
+  </div>

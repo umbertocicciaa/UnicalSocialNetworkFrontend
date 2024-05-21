@@ -1,0 +1,106 @@
+/* Individual post styling */
+.post {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.location {
+  font-size: 12px;
+  color: #8e8e8e;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+}
+
+.post-actions {
+  display: flex;
+  padding: 10px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: #262626;
+  font-size: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.action-btn .liked {
+  color: #e74c3c;
+}
+
+.post-likes {
+  padding: 0 10px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-caption {
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+.post-comments {
+  padding: 0 10px 10px 10px;
+}
+
+.comment {
+  margin-bottom: 5px;
+}
+
+.comment strong {
+  font-weight: bold;
+}
+
+.action-btn i {
+  font-size: 20px;
+}
+
+/* Styling for the "View Comments" button */
+.view-comments-btn {
+  background: none;
+  border: none;
+  color: #262626;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin-top: 5px;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  color: #262626;
+  font-size: 14px;
+  cursor: pointer;
+}
