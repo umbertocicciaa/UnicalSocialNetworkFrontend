@@ -14,13 +14,12 @@ import { ErrorComponent } from "../error/error.component";
 })
 export class ProfileComponent implements OnInit {
   private user: string = "";
-  username: string = "john_doe";
-  fullName: string = "John Doe";
-  bio: string =
-    "This is a sample bio of the user. It can span multiple lines and provide detailed information.";
-  postsCount: number = 34;
-  followersCount: number = 1200;
-  followingCount: number = 180;
+  username: string = "";
+  fullName: string = "";
+  bio: string = "";
+  postsCount: number = 0;
+  followersCount: number = 0;
+  followingCount: number = 0;
   error: boolean = false;
   posts: Array<{ image: string }> = [
     { image: "https://via.placeholder.com/300" },

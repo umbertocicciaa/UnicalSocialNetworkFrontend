@@ -16,7 +16,6 @@ import { HttpTokenInterceptor } from "./interceptor/http-token.interceptor";
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideAnimationsAsync(),
     {
