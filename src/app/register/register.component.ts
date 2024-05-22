@@ -4,6 +4,7 @@ import { Router, RouterModule } from "@angular/router";
 import { AuthService } from "../api/services";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { TokenService } from "../token/token.service";
 
 @Component({
   selector: "app-register",
@@ -28,7 +29,11 @@ export class RegisterComponent {
   password: string = "";
   errorMessage: string = "";
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private tokenService: TokenService
+  ) {}
 
   onSubmit() {
     if (
@@ -52,7 +57,8 @@ export class RegisterComponent {
         })
         .subscribe({
           next: (res) => {
-            this.router.navigate(["home"]);
+            this.tokenService.token = res.access_token as string;
+            this.router.navigate(["home/friend-post"]);
           },
           error: () => {
             this.errorMessage = "Email o Username gia esistenti";

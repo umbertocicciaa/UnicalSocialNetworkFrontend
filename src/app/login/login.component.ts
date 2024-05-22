@@ -34,7 +34,7 @@ export class LoginComponent {
         .subscribe({
           next: (res) => {
             this.tokenService.token = res.access_token as string;
-            this.router.navigate(["home"]);
+            this.router.navigate(["home/friend-post"]);
           },
           error: (err) => {
             this.errorMessage = "Invalid username or password";
