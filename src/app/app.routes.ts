@@ -9,6 +9,7 @@ import { SearchComponent } from "./search/search.component";
 import { ExploreComponent } from "./explore/explore.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
 import { CreateTwitComponent } from "./create-twit/create-twit.component";
+import { FriendPostComponent } from "./friend-post/friend-post.component";
 
 export const routes: Routes = [
   {
@@ -29,27 +30,37 @@ export const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: "profile",
+        path: "profile/:username",
         component: ProfileComponent,
+        canActivate: [authGuard],
       },
       {
         path: "search",
         component: SearchComponent,
+        canActivate: [authGuard],
       },
       {
         path: "explore",
         component: ExploreComponent,
+        canActivate: [authGuard],
       },
       {
         path: "createPost",
         component: CreatePostComponent,
+        canActivate: [authGuard],
       },
       {
         path: "createTwit",
         component: CreateTwitComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "friend-post",
+        component: FriendPostComponent,
+        canActivate: [authGuard],
       },
     ],
-    //canActivate: [authGuard],
+    canActivate: [authGuard],
   },
   {
     path: "**", // wildcard route for 404 not found page

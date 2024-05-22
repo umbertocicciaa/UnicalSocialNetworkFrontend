@@ -5,6 +5,8 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   providedIn: "root",
 })
 export class TokenService {
+  constructor() {}
+
   set token(token: string) {
     localStorage.setItem("token", token);
   }
@@ -38,7 +40,6 @@ export class TokenService {
     if (token) {
       const jwtHelper = new JwtHelperService();
       const decodedToken = jwtHelper.decodeToken(token);
-      console.log(decodedToken.authorities);
       return decodedToken.authorities;
     }
     return [];
