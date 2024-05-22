@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { PostComponent } from "../post/post.component";
+import { PostService } from "../api/services";
 
 @Component({
   selector: "app-explore",
@@ -9,7 +10,7 @@ import { PostComponent } from "../post/post.component";
   templateUrl: "./explore.component.html",
   styleUrl: "./explore.component.css",
 })
-export class ExploreComponent {
+export class ExploreComponent implements OnInit {
   posts: any[] = [
     {
       user: {
@@ -173,4 +174,8 @@ export class ExploreComponent {
     },
     // Aggiungi altri post qui
   ];
+
+  constructor(private postService: PostService) {}
+
+  ngOnInit(): void {}
 }
