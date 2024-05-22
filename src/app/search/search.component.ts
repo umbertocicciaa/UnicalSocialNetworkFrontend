@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { UserService } from "../api/services";
 
 @Component({
   selector: "app-search",
@@ -150,6 +151,8 @@ export class SearchComponent {
       avatar: "https://via.placeholder.com/40",
     },
   ];
+
+  constructor(private userService: UserService) {}
 
   onSearch() {
     if (this.query.trim() === "") {
