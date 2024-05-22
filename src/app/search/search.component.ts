@@ -1,168 +1,67 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { UserService } from "../api/services";
+import { firstValueFrom } from "rxjs";
+import { UserResponse } from "../api/models";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-search",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    InfiniteScrollModule,
+    SpinnerLoadComponent,
+  ],
   templateUrl: "./search.component.html",
   styleUrl: "./search.component.css",
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
   query: string = "";
-  results: Array<{ username: string; fullName: string; avatar: string }> = [];
+  users: UserResponse[] = [];
+  loading: boolean = false;
+  private page: number = 0;
+  constructor(private userService: UserService, private router: Router) {}
 
-  private users = [
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "john_doe",
-      fullName: "John Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "jane_doe",
-      fullName: "Jane Doe",
-      avatar: "https://via.placeholder.com/40",
-    },
-    {
-      username: "user123",
-      fullName: "User OneTwoThree",
-      avatar: "https://via.placeholder.com/40",
-    },
-  ];
+  ngOnInit() {}
 
-  constructor(private userService: UserService) {}
-
-  onSearch() {
-    if (this.query.trim() === "") {
-      this.results = [];
+  async onSearch() {
+    let query = this.query.trim();
+    if (query !== "") {
+      this.loading = true;
+      this.users = await firstValueFrom(
+        this.userService.getUserLikeUsername({
+          username: query,
+          page: this.page,
+        })
+      ).finally(() => (this.loading = false));
     } else {
-      this.results = this.users.filter(
-        (user) =>
-          user.username.toLowerCase().includes(this.query.toLowerCase()) ||
-          user.fullName.toLowerCase().includes(this.query.toLowerCase())
-      );
+      this.users = [];
+      this.loading = false;
+      this.page = 0;
     }
+  }
+
+  async onScroll() {
+    let query = this.query.trim();
+    if (query !== "") {
+      this.loading = true;
+      this.page++;
+      let users = await firstValueFrom(
+        this.userService.getUserLikeUsername({
+          username: query,
+          page: this.page,
+        })
+      ).finally(() => (this.loading = false));
+      this.users.push(...users);
+    }
+  }
+
+  navigateToProfile(username: string | undefined) {
+    if (username) this.router.navigate(["/home/profile/" + username]);
   }
 }

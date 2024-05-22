@@ -8,18 +8,25 @@
         (input)="onSearch()"
       />
     </div>
-    <div class="results-box" *ngIf="results.length > 0">
-      <ul class="results-list">
-        <li *ngFor="let user of results" class="result-item">
-          <img [src]="user.avatar" alt="User Avatar" class="avatar" />
-          <div class="user-info">
-            <div class="username">{{ user.username }}</div>
-            <div class="full-name">{{ user.fullName }}</div>
-          </div>
-        </li>
-      </ul>
+    <div 
+    infiniteScroll 
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="150"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+    class="results-box" *ngIf="users.length > 0">
+        <ul class="results-list">
+          <li *ngFor="let user of users" class="result-item" (click)="navigateToProfile(user.profileName)">
+            <img [src]="user.profilePicture" alt="User Avatar" class="avatar" />
+            <div class="user-info">
+              <div class="username">{{ user.profileName }}</div>
+              <div class="full-name">{{ user.firstName }} {{user.lastName}} </div>
+            </div>
+          </li>
+        </ul>
     </div>
-    <div class="no-results" *ngIf="results.length === 0 && query">
+    <app-spinner-load *ngIf="loading"></app-spinner-load>
+    <div class="no-results" *ngIf="users.length === 0 && query">
       No results found.
     </div>
   </div>
