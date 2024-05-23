@@ -1,5 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { CommentService } from "../api/services/comment.service";
+import { UserService } from "../api/services/user.service";
 
 @Component({
   selector: "app-post",
@@ -8,9 +10,16 @@ import { Component, Input } from "@angular/core";
   templateUrl: "./post.component.html",
   styleUrl: "./post.component.css",
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
   @Input()
   post: any = {};
+  constructor(
+    private userService: UserService,
+    private commentService: CommentService
+  ) {}
+
+  ngOnInit(): void {}
+
   likePost(post: any): void {
     if (post.liked) {
       post.likes--;

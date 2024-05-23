@@ -2,15 +2,17 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { PostComponent } from "../post/post.component";
 import { PostService } from "../api/services";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { TwitComponent } from "../twit/twit.component";
 
 @Component({
-  selector: "app-explore",
+  selector: "app-explore-post",
   standalone: true,
-  imports: [CommonModule, PostComponent],
-  templateUrl: "./explore.component.html",
-  styleUrl: "./explore.component.css",
+  imports: [CommonModule, PostComponent, TwitComponent, InfiniteScrollModule],
+  templateUrl: "./explore-post.component.html",
+  styleUrl: "./explore-post.component.css",
 })
-export class ExploreComponent implements OnInit {
+export class ExplorePostComponent implements OnInit {
   posts: any[] = [
     {
       user: {
@@ -174,8 +176,13 @@ export class ExploreComponent implements OnInit {
     },
     // Aggiungi altri post qui
   ];
-
   constructor(private postService: PostService) {}
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    this.postService.getPosts;
+  }
+
+  onScroll() {
+    console.log("scrolled");
+  }
 }

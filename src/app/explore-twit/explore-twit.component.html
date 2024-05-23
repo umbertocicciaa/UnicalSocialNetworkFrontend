@@ -1,0 +1,9 @@
+<div class="explore-container">
+    <div
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()">
+    <app-twit *ngFor="let twit of twits" [tweet]="twit"></app-twit>
+    </div>  
+</div>

@@ -1,0 +1,89 @@
+/* Individual tweet styling */
+.tweet {
+  background: #fff;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.tweet-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.handle {
+  font-size: 14px;
+  color: #657786;
+}
+
+.tweet-content {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.tweet-actions {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: #1da1f2;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.action-btn i {
+  margin-right: 5px;
+}
+
+.action-btn .liked {
+  color: #e0245e;
+}
+
+.tweet-comments {
+  padding-left: 50px;
+  border-top: 1px solid #e1e8ed;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.comment {
+  margin-bottom: 5px;
+}
+
+.comment strong {
+  font-weight: bold;
+}
+
+.view-comments-btn {
+  background: none;
+  border: none;
+  color: #1da1f2;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
+  padding: 0;
+}

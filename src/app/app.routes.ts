@@ -6,10 +6,11 @@ import { RegisterComponent } from "./register/register.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { SearchComponent } from "./search/search.component";
-import { ExploreComponent } from "./explore/explore.component";
+import { ExplorePostComponent } from "./explore-post/explore-post.component";
 import { CreatePostComponent } from "./create-post/create-post.component";
 import { CreateTwitComponent } from "./create-twit/create-twit.component";
 import { FriendPostComponent } from "./friend-post/friend-post.component";
+import { ExploreTwitComponent } from "./explore-twit/explore-twit.component";
 
 export const routes: Routes = [
   {
@@ -40,17 +41,22 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: "explore",
-        component: ExploreComponent,
+        path: "explore-post",
+        component: ExplorePostComponent,
         canActivate: [authGuard],
       },
       {
-        path: "createPost",
+        path: "explore-twit",
+        component: ExploreTwitComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "create-post",
         component: CreatePostComponent,
         canActivate: [authGuard],
       },
       {
-        path: "createTwit",
+        path: "create-twit",
         component: CreateTwitComponent,
         canActivate: [authGuard],
       },
