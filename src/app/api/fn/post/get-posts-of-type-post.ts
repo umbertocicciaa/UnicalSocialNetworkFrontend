@@ -10,14 +10,12 @@ import { PostResponse } from '../../models/post-response';
 
 export interface GetPostsOfTypePost$Params {
   page?: number;
-  user_id: number;
 }
 
-export function getPostsOfTypePost(http: HttpClient, rootUrl: string, params: GetPostsOfTypePost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+export function getPostsOfTypePost(http: HttpClient, rootUrl: string, params?: GetPostsOfTypePost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
   const rb = new RequestBuilder(rootUrl, getPostsOfTypePost.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
-    rb.query('user_id', params.user_id, {});
   }
 
   return http.request(

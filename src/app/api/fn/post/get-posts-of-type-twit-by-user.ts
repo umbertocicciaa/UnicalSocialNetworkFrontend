@@ -6,18 +6,18 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { CommentResponse } from '../../models/comment-response';
+import { PostResponse } from '../../models/post-response';
 
-export interface GetComment$Params {
-  post_id: number;
+export interface GetPostsOfTypeTwitByUser$Params {
   page?: number;
+  user_id: number;
 }
 
-export function getComment(http: HttpClient, rootUrl: string, params: GetComment$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CommentResponse>>> {
-  const rb = new RequestBuilder(rootUrl, getComment.PATH, 'get');
+export function getPostsOfTypeTwitByUser(http: HttpClient, rootUrl: string, params: GetPostsOfTypeTwitByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+  const rb = new RequestBuilder(rootUrl, getPostsOfTypeTwitByUser.PATH, 'get');
   if (params) {
-    rb.path('post_id', params.post_id, {});
     rb.query('page', params.page, {});
+    rb.path('user_id', params.user_id, {});
   }
 
   return http.request(
@@ -25,9 +25,9 @@ export function getComment(http: HttpClient, rootUrl: string, params: GetComment
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<CommentResponse>>;
+      return r as StrictHttpResponse<Array<PostResponse>>;
     })
   );
 }
 
-getComment.PATH = '/api/v1/Comment/comments/{post_id}';
+getPostsOfTypeTwitByUser.PATH = '/api/v1/Post/posts/{user_id}/twits';

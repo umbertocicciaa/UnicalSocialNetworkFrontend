@@ -24,4 +24,5 @@ export { RegisterRequest } from './models/register-request';
 export { TwitCreatedRespose } from './models/twit-created-respose';
 export { TwitCreateRequest } from './models/twit-create-request';
 export { UserCountResponse } from './models/user-count-response';
+export { UserPostResponse } from './models/user-post-response';
 export { UserResponse } from './models/user-response';

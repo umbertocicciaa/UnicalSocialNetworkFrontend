@@ -8,16 +8,16 @@ import { RequestBuilder } from '../../request-builder';
 
 import { PostResponse } from '../../models/post-response';
 
-export interface GetPostsOfTypeTwit$Params {
+export interface GetPostsOfTypePostByUser$Params {
   page?: number;
   user_id: number;
 }
 
-export function getPostsOfTypeTwit(http: HttpClient, rootUrl: string, params: GetPostsOfTypeTwit$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
-  const rb = new RequestBuilder(rootUrl, getPostsOfTypeTwit.PATH, 'get');
+export function getPostsOfTypePostByUser(http: HttpClient, rootUrl: string, params: GetPostsOfTypePostByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+  const rb = new RequestBuilder(rootUrl, getPostsOfTypePostByUser.PATH, 'get');
   if (params) {
     rb.query('page', params.page, {});
-    rb.query('user_id', params.user_id, {});
+    rb.path('user_id', params.user_id, {});
   }
 
   return http.request(
@@ -30,4 +30,4 @@ export function getPostsOfTypeTwit(http: HttpClient, rootUrl: string, params: Ge
   );
 }
 
-getPostsOfTypeTwit.PATH = '/api/v1/Post/posts/twits';
+getPostsOfTypePostByUser.PATH = '/api/v1/Post/posts/{user_id}/posts';

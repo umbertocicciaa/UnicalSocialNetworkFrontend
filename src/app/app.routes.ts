@@ -15,7 +15,7 @@ import { ExploreTwitComponent } from "./explore-twit/explore-twit.component";
 export const routes: Routes = [
   {
     path: "",
-    redirectTo: "login",
+    redirectTo: "home",
     pathMatch: "full",
   },
   {
