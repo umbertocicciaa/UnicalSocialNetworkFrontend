@@ -11,7 +11,7 @@
     <div 
     infiniteScroll 
     [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="150"
+    [infiniteScrollThrottle]="10"
     (scrolled)="onScroll()"
     [scrollWindow]="false"
     class="results-box" *ngIf="users.length > 0">

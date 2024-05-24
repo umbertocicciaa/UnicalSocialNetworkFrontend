@@ -1,9 +1,12 @@
-<div class="explore-container">
-    <div
+<div  
       infiniteScroll
-      [infiniteScrollDistance]="2"
+      [infiniteScrollDistance]="3"
       [infiniteScrollThrottle]="50"
-      (scrolled)="onScroll()">
-    <app-twit *ngFor="let twit of twits" [tweet]="twit"></app-twit>
-    </div>  
+      (scrolled)="onScroll()"
+      [scrollWindow]="false" 
+      class="explore-container">
+    <app-twit  *ngFor="let twit of twits" [tweet]="twit"></app-twit>
+    <div *ngIf="loading">
+      <app-spinner-load></app-spinner-load>
+    </div>
 </div>

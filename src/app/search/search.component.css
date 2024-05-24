@@ -26,7 +26,7 @@
 .results-box {
   margin-top: 10px;
   max-height: 80vh;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .results-list {

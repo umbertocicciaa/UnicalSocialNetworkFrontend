@@ -1,9 +1,8 @@
-<div 
-    infiniteScroll 
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="150"
-    (scrolled)="onScroll()"
-    [scrollWindow]="false"
-    class="explore-container">
+<div  infiniteScroll 
+      [infiniteScrollDistance]="7"
+      [infiniteScrollThrottle]="150"
+      (scrolled)="onScroll()"
+      [scrollWindow]="false"
+      class="explore-container">
   <app-post *ngFor="let post of posts" [post]="post" ></app-post>
 </div>

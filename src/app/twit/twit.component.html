@@ -1,18 +1,21 @@
 <div class="tweet">
-      <div class="tweet-header">
-        <img [src]="tweet.user.avatar" alt="User Avatar" class="avatar" />
+      <div class="tweet-header" (click)="goToProfile(tweet.user?.profileName)">
+        <img [src]="tweet.user?.profilePicture" alt="User Avatar" class="avatar" />
         <div class="user-info">
-          <div class="username">{{ tweet.user.username }}</div>
-          <div class="handle">{{ tweet.user.handle }}</div>
+          <div class="username">{{ tweet.user?.profileName }}</div>
         </div>
       </div>
       <div class="tweet-content">
-        <p>{{ tweet.content }}</p>
+        <p>{{ tweet.caption }}</p>
       </div>
+      
       <div class="tweet-actions">
+        
         <button (click)="likeTweet(tweet)" class="action-btn">
-          <i class="fa fa-heart" [class.liked]="tweet.liked"></i> {{ tweet.likes }}
+            <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
         </button>
+        {{ tweet.like }}
+        <!--
         <button (click)="toggleComments(tweet)" class="action-btn">
           <i class="fa fa-comment"></i> {{ tweet.comments.length }}
         </button>
@@ -20,8 +23,11 @@
       <div class="tweet-comments" *ngIf="tweet.showComments">
         <div *ngFor="let comment of tweet.comments" class="comment">
           <strong>{{ comment.user }}</strong> {{ comment.text }}
-        </div>
+        </div> 
+        -->
       </div>
+      <!--
       <button *ngIf="tweet.comments.length > 0 && !tweet.showComments" (click)="toggleComments(tweet)" class="view-comments-btn">View Comments</button>
+      -->
 </div>
   

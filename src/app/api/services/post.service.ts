@@ -25,8 +25,12 @@ import { getPostsById } from '../fn/post/get-posts-by-id';
 import { GetPostsById$Params } from '../fn/post/get-posts-by-id';
 import { getPostsOfTypePost } from '../fn/post/get-posts-of-type-post';
 import { GetPostsOfTypePost$Params } from '../fn/post/get-posts-of-type-post';
-import { getPostsOfTypeTwit } from '../fn/post/get-posts-of-type-twit';
-import { GetPostsOfTypeTwit$Params } from '../fn/post/get-posts-of-type-twit';
+import { getPostsOfTypePostByUser } from '../fn/post/get-posts-of-type-post-by-user';
+import { GetPostsOfTypePostByUser$Params } from '../fn/post/get-posts-of-type-post-by-user';
+import { getPostsOfTypeTwitByUser } from '../fn/post/get-posts-of-type-twit-by-user';
+import { GetPostsOfTypeTwitByUser$Params } from '../fn/post/get-posts-of-type-twit-by-user';
+import { getPostsOfTypeTwits } from '../fn/post/get-posts-of-type-twits';
+import { GetPostsOfTypeTwits$Params } from '../fn/post/get-posts-of-type-twits';
 import { getPostsTotal } from '../fn/post/get-posts-total';
 import { GetPostsTotal$Params } from '../fn/post/get-posts-total';
 import { PostByUserResponse } from '../models/post-by-user-response';
@@ -67,27 +71,27 @@ export class PostService extends BaseService {
     );
   }
 
-  /** Path part for operation `getPostsOfTypeTwit()` */
-  static readonly GetPostsOfTypeTwitPath = '/api/v1/Post/posts/twits';
+  /** Path part for operation `getPostsOfTypeTwits()` */
+  static readonly GetPostsOfTypeTwitsPath = '/api/v1/Post/posts/twits';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getPostsOfTypeTwit()` instead.
+   * To access only the response body, use `getPostsOfTypeTwits()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPostsOfTypeTwit$Response(params: GetPostsOfTypeTwit$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
-    return getPostsOfTypeTwit(this.http, this.rootUrl, params, context);
+  getPostsOfTypeTwits$Response(params?: GetPostsOfTypeTwits$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+    return getPostsOfTypeTwits(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getPostsOfTypeTwit$Response()` instead.
+   * To access the full response (for headers, for example), `getPostsOfTypeTwits$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPostsOfTypeTwit(params: GetPostsOfTypeTwit$Params, context?: HttpContext): Observable<Array<PostResponse>> {
-    return this.getPostsOfTypeTwit$Response(params, context).pipe(
+  getPostsOfTypeTwits(params?: GetPostsOfTypeTwits$Params, context?: HttpContext): Observable<Array<PostResponse>> {
+    return this.getPostsOfTypeTwits$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
     );
   }
@@ -126,7 +130,7 @@ export class PostService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getPostsOfTypePost$Response(params: GetPostsOfTypePost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+  getPostsOfTypePost$Response(params?: GetPostsOfTypePost$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
     return getPostsOfTypePost(this.http, this.rootUrl, params, context);
   }
 
@@ -136,7 +140,7 @@ export class PostService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getPostsOfTypePost(params: GetPostsOfTypePost$Params, context?: HttpContext): Observable<Array<PostResponse>> {
+  getPostsOfTypePost(params?: GetPostsOfTypePost$Params, context?: HttpContext): Observable<Array<PostResponse>> {
     return this.getPostsOfTypePost$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
     );
@@ -238,6 +242,56 @@ export class PostService extends BaseService {
    */
   getPosts(params?: GetPosts$Params, context?: HttpContext): Observable<Array<PostResponse>> {
     return this.getPosts$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `getPostsOfTypeTwitByUser()` */
+  static readonly GetPostsOfTypeTwitByUserPath = '/api/v1/Post/posts/{user_id}/twits';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPostsOfTypeTwitByUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsOfTypeTwitByUser$Response(params: GetPostsOfTypeTwitByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+    return getPostsOfTypeTwitByUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPostsOfTypeTwitByUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsOfTypeTwitByUser(params: GetPostsOfTypeTwitByUser$Params, context?: HttpContext): Observable<Array<PostResponse>> {
+    return this.getPostsOfTypeTwitByUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `getPostsOfTypePostByUser()` */
+  static readonly GetPostsOfTypePostByUserPath = '/api/v1/Post/posts/{user_id}/posts';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPostsOfTypePostByUser()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsOfTypePostByUser$Response(params: GetPostsOfTypePostByUser$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+    return getPostsOfTypePostByUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPostsOfTypePostByUser$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsOfTypePostByUser(params: GetPostsOfTypePostByUser$Params, context?: HttpContext): Observable<Array<PostResponse>> {
+    return this.getPostsOfTypePostByUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
     );
   }

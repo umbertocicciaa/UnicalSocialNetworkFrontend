@@ -4,6 +4,8 @@ import { PostComponent } from "../post/post.component";
 import { PostService } from "../api/services";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { TwitComponent } from "../twit/twit.component";
+import { firstValueFrom } from "rxjs";
+import { PostResponse } from "../api/models";
 
 @Component({
   selector: "app-explore-post",
@@ -13,176 +15,44 @@ import { TwitComponent } from "../twit/twit.component";
   styleUrl: "./explore-post.component.css",
 })
 export class ExplorePostComponent implements OnInit {
-  posts: any[] = [
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    {
-      user: {
-        username: "john_doe",
-        avatar: "https://via.placeholder.com/32",
-      },
-      location: "New York, USA",
-      image: "https://via.placeholder.com/600",
-      caption: "A beautiful day in New York!",
-      likes: 120,
-      liked: false,
-      comments: [
-        { user: "jane_doe", text: "Looks amazing!" },
-        { user: "user123", text: "Wish I were there!" },
-      ],
-      showComments: false,
-    },
-    // Aggiungi altri post qui
-  ];
+  posts: PostResponse[] = [];
+  loading: boolean = false;
+  error: boolean = false;
+  private page: number = 0;
   constructor(private postService: PostService) {}
 
   async ngOnInit() {
-    this.postService.getPosts;
+    this.loading = true;
+    await firstValueFrom(
+      this.postService.getPostsOfTypePost({ page: this.page })
+    )
+      .then((posts) => {
+        posts.forEach((post) => this.posts.push(post));
+      })
+      .catch(() => {
+        this.error = true;
+        this.loading = false;
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   }
 
-  onScroll() {
-    console.log("scrolled");
+  async onScroll() {
+    this.loading = true;
+    this.page++;
+    await firstValueFrom(
+      this.postService.getPostsOfTypePost({ page: this.page })
+    )
+      .then((posts) => {
+        posts.forEach((post) => this.posts.push(post));
+      })
+      .catch(() => {
+        this.error = true;
+        this.loading = false;
+      })
+      .finally(() => {
+        this.loading = false;
+      });
   }
 }
