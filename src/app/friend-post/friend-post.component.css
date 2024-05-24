@@ -3,4 +3,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 20px;
+  overflow-y: scroll;
+  max-height: 600px;
 }
