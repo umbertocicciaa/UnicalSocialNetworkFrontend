@@ -6,11 +6,18 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { TwitComponent } from "../twit/twit.component";
 import { firstValueFrom } from "rxjs";
 import { PostResponse } from "../api/models";
+import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 
 @Component({
   selector: "app-explore-post",
   standalone: true,
-  imports: [CommonModule, PostComponent, TwitComponent, InfiniteScrollModule],
+  imports: [
+    CommonModule,
+    PostComponent,
+    TwitComponent,
+    InfiniteScrollModule,
+    SpinnerLoadComponent,
+  ],
   templateUrl: "./explore-post.component.html",
   styleUrl: "./explore-post.component.css",
 })

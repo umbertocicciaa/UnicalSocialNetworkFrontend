@@ -8,7 +8,9 @@
     </div>
     <img *ngIf="post.image" [src]="post.image" alt="Post Image" class="post-image" />
     <img *ngIf="!post.image" src="https://via.placeholder.com/32" alt="Post Image" class="post-image" />
-    
+    <div class="post-content">
+      <p>{{ post.caption }}</p>
+    </div>
     <div class="post-actions">
       <button (click)="likePost(post)" class="action-btn">
           <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon">

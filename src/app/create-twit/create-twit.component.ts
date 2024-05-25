@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { PostService } from "../api/services";
 @Component({
   selector: "app-create-twit",
   standalone: true,
@@ -13,11 +14,7 @@ import { MatInputModule } from "@angular/material/input";
 export class CreateTwitComponent {
   tweetText: string = "";
 
-  constructor() {}
+  constructor(private postService: PostService) {}
 
-  onSubmit(): void {
-    // Logic to handle the tweet creation
-    console.log("Tweet submitted");
-    console.log("Text:", this.tweetText);
-  }
+  async onSubmit() {}
 }
