@@ -940,7 +940,54 @@
         ]
       }
     },
-    "/api/v1/Post/posts/{user_id}/twits": {
+    "/api/v1/Post/posts/{id}": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPostsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/Post/posts/twits/{user_id}": {
       "get": {
         "tags": ["Post"],
         "operationId": "getPostsOfTypeTwitByUser",
@@ -1000,7 +1047,58 @@
         ]
       }
     },
-    "/api/v1/Post/posts/{user_id}/posts": {
+    "/api/v1/Post/posts/twits-followings": {
+      "get": {
+        "tags": ["Post"],
+        "operationId": "getPostsOfTypeTwitFollowings",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/Post/posts/posts/{user_id}": {
       "get": {
         "tags": ["Post"],
         "operationId": "getPostsOfTypePostByUser",
@@ -1060,18 +1158,19 @@
         ]
       }
     },
-    "/api/v1/Post/posts/{id}": {
+    "/api/v1/Post/posts/posts-followings": {
       "get": {
         "tags": ["Post"],
-        "operationId": "getPostsById",
+        "operationId": "getPostsOfTypePostFollowings",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
+            "name": "page",
+            "in": "query",
+            "required": false,
             "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32",
+              "default": 0
             }
           }
         ],
@@ -1094,7 +1193,10 @@
             "content": {
               "application/hal+json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PostResponse"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostResponse"
+                  }
                 }
               }
             }

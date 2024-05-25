@@ -30,4 +30,4 @@ export function getPostsOfTypePostByUser(http: HttpClient, rootUrl: string, para
   );
 }
 
-getPostsOfTypePostByUser.PATH = '/api/v1/Post/posts/{user_id}/posts';
+getPostsOfTypePostByUser.PATH = '/api/v1/Post/posts/posts/{user_id}';
