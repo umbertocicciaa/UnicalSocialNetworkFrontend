@@ -1,0 +1,9 @@
+<div class="user-container">
+    <img *ngIf="user.profilePicture" [src]="user.profilePicture" alt="User Avatar" class="avatar" />
+    <img *ngIf="!user.profilePicture" src="https://via.placeholder.com/150" alt="User Avatar" class="avatar" />
+    <div class="user-info">
+      <div class="username">{{ user.profileName }}</div>
+      <div class="full-name">{{ user.firstName }} {{user.lastName}}</div>
+    </div>
+  </div>
+  

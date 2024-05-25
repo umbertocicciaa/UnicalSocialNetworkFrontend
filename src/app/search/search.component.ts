@@ -7,6 +7,7 @@ import { UserResponse } from "../api/models";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 import { Router } from "@angular/router";
+import { UserSearchResultComponent } from "../user-search-result/user-search-result.component";
 
 @Component({
   selector: "app-search",
@@ -16,6 +17,7 @@ import { Router } from "@angular/router";
     FormsModule,
     InfiniteScrollModule,
     SpinnerLoadComponent,
+    UserSearchResultComponent,
   ],
   templateUrl: "./search.component.html",
   styleUrl: "./search.component.css",

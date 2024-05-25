@@ -17,11 +17,7 @@
     class="results-box" *ngIf="users.length > 0">
         <ul class="results-list">
           <li *ngFor="let user of users" class="result-item" (click)="navigateToProfile(user.profileName)">
-            <img [src]="user.profilePicture" alt="User Avatar" class="avatar" />
-            <div class="user-info">
-              <div class="username">{{ user.profileName }}</div>
-              <div class="full-name">{{ user.firstName }} {{user.lastName}} </div>
-            </div>
+            <app-user-search-result [user]="user"></app-user-search-result>
           </li>
         </ul>
     </div>
