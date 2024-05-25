@@ -27,8 +27,12 @@ import { getPostsOfTypePost } from '../fn/post/get-posts-of-type-post';
 import { GetPostsOfTypePost$Params } from '../fn/post/get-posts-of-type-post';
 import { getPostsOfTypePostByUser } from '../fn/post/get-posts-of-type-post-by-user';
 import { GetPostsOfTypePostByUser$Params } from '../fn/post/get-posts-of-type-post-by-user';
+import { getPostsOfTypePostFollowings } from '../fn/post/get-posts-of-type-post-followings';
+import { GetPostsOfTypePostFollowings$Params } from '../fn/post/get-posts-of-type-post-followings';
 import { getPostsOfTypeTwitByUser } from '../fn/post/get-posts-of-type-twit-by-user';
 import { GetPostsOfTypeTwitByUser$Params } from '../fn/post/get-posts-of-type-twit-by-user';
+import { getPostsOfTypeTwitFollowings } from '../fn/post/get-posts-of-type-twit-followings';
+import { GetPostsOfTypeTwitFollowings$Params } from '../fn/post/get-posts-of-type-twit-followings';
 import { getPostsOfTypeTwits } from '../fn/post/get-posts-of-type-twits';
 import { GetPostsOfTypeTwits$Params } from '../fn/post/get-posts-of-type-twits';
 import { getPostsTotal } from '../fn/post/get-posts-total';
@@ -246,8 +250,33 @@ export class PostService extends BaseService {
     );
   }
 
+  /** Path part for operation `getPostsById()` */
+  static readonly GetPostsByIdPath = '/api/v1/Post/posts/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPostsById()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsById$Response(params: GetPostsById$Params, context?: HttpContext): Observable<StrictHttpResponse<PostResponse>> {
+    return getPostsById(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPostsById$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsById(params: GetPostsById$Params, context?: HttpContext): Observable<PostResponse> {
+    return this.getPostsById$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PostResponse>): PostResponse => r.body)
+    );
+  }
+
   /** Path part for operation `getPostsOfTypeTwitByUser()` */
-  static readonly GetPostsOfTypeTwitByUserPath = '/api/v1/Post/posts/{user_id}/twits';
+  static readonly GetPostsOfTypeTwitByUserPath = '/api/v1/Post/posts/twits/{user_id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -271,8 +300,33 @@ export class PostService extends BaseService {
     );
   }
 
+  /** Path part for operation `getPostsOfTypeTwitFollowings()` */
+  static readonly GetPostsOfTypeTwitFollowingsPath = '/api/v1/Post/posts/twits-followings';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getPostsOfTypeTwitFollowings()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsOfTypeTwitFollowings$Response(params?: GetPostsOfTypeTwitFollowings$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+    return getPostsOfTypeTwitFollowings(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getPostsOfTypeTwitFollowings$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getPostsOfTypeTwitFollowings(params?: GetPostsOfTypeTwitFollowings$Params, context?: HttpContext): Observable<Array<PostResponse>> {
+    return this.getPostsOfTypeTwitFollowings$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
+    );
+  }
+
   /** Path part for operation `getPostsOfTypePostByUser()` */
-  static readonly GetPostsOfTypePostByUserPath = '/api/v1/Post/posts/{user_id}/posts';
+  static readonly GetPostsOfTypePostByUserPath = '/api/v1/Post/posts/posts/{user_id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -296,28 +350,28 @@ export class PostService extends BaseService {
     );
   }
 
-  /** Path part for operation `getPostsById()` */
-  static readonly GetPostsByIdPath = '/api/v1/Post/posts/{id}';
+  /** Path part for operation `getPostsOfTypePostFollowings()` */
+  static readonly GetPostsOfTypePostFollowingsPath = '/api/v1/Post/posts/posts-followings';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getPostsById()` instead.
+   * To access only the response body, use `getPostsOfTypePostFollowings()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPostsById$Response(params: GetPostsById$Params, context?: HttpContext): Observable<StrictHttpResponse<PostResponse>> {
-    return getPostsById(this.http, this.rootUrl, params, context);
+  getPostsOfTypePostFollowings$Response(params?: GetPostsOfTypePostFollowings$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<PostResponse>>> {
+    return getPostsOfTypePostFollowings(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getPostsById$Response()` instead.
+   * To access the full response (for headers, for example), `getPostsOfTypePostFollowings$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  getPostsById(params: GetPostsById$Params, context?: HttpContext): Observable<PostResponse> {
-    return this.getPostsById$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PostResponse>): PostResponse => r.body)
+  getPostsOfTypePostFollowings(params?: GetPostsOfTypePostFollowings$Params, context?: HttpContext): Observable<Array<PostResponse>> {
+    return this.getPostsOfTypePostFollowings$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<PostResponse>>): Array<PostResponse> => r.body)
     );
   }
 

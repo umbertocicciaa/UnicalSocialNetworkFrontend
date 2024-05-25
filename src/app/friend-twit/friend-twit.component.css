@@ -1,0 +1,7 @@
+.explore-container {
+  margin: 20px;
+  padding: 20px;
+  max-height: 550px;
+  overflow-y: scroll;
+  flex: none;
+}

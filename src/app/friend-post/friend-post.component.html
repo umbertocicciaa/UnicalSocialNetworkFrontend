@@ -1,3 +1,14 @@
-<div class="explore-container">
-    <app-post *ngFor="let post of posts" [post]="post"></app-post>
-</div>
+<div>
+    <div  infiniteScroll 
+          [infiniteScrollDistance]="7"
+          [infiniteScrollThrottle]="150"
+          (scrolled)="onScroll()"
+          [scrollWindow]="false"
+          class="explore-container">
+        <app-post *ngFor="let post of posts" [post]="post" ></app-post>
+    </div>
+    <div *ngIf="loading">
+      <app-spinner-load></app-spinner-load>
+    </div>
+    <app-error *ngIf="error"></app-error>
+  </div>

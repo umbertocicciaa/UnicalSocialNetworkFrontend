@@ -7,6 +7,7 @@ import { TwitComponent } from "../twit/twit.component";
 import { firstValueFrom } from "rxjs";
 import { PostResponse } from "../api/models";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
+import { ErrorComponent } from "../error/error.component";
 
 @Component({
   selector: "app-explore-post",
@@ -17,6 +18,7 @@ import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
     TwitComponent,
     InfiniteScrollModule,
     SpinnerLoadComponent,
+    ErrorComponent,
   ],
   templateUrl: "./explore-post.component.html",
   styleUrl: "./explore-post.component.css",

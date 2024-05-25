@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterModule } from "@angular/router";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { AuthService, UserService } from "../api/services";
+import { UserService } from "../api/services";
 import { firstValueFrom } from "rxjs";
+import { UserResponse } from "../api/models";
 
 @Component({
   selector: "app-home",
@@ -12,24 +13,19 @@ import { firstValueFrom } from "rxjs";
   styleUrl: "./home.component.css",
 })
 export class HomeComponent implements OnInit {
-  private currentUserName: string = "";
+  private currentUser: UserResponse = {};
 
-  constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router
-  ) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   async ngOnInit() {
-    try {
-      let user = await firstValueFrom(this.userService.getLoggedUsers());
-      this.currentUserName = user.profileName ?? "";
-    } catch (err) {}
+    await firstValueFrom(this.userService.getLoggedUsers()).then(
+      (user) => (this.currentUser = user)
+    );
   }
 
   navigateToUsername() {
-    if (this.currentUserName)
-      this.router.navigate(["/home/profile/" + this.currentUserName]);
+    if (this.currentUser?.profileName)
+      this.router.navigate(["/home/profile/" + this.currentUser?.profileName]);
   }
 
   logout() {}

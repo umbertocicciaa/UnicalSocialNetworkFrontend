@@ -1,3 +1,4 @@
+/* Container for the explore page */
 .explore-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

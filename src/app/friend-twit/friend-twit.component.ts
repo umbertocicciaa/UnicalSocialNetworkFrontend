@@ -1,42 +1,41 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { PostComponent } from "../post/post.component";
-import { PostService } from "../api/services";
-import { PostResponse, UserResponse } from "../api/models";
-import { firstValueFrom } from "rxjs";
-import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ErrorComponent } from "../error/error.component";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { TwitComponent } from "../twit/twit.component";
+import { PostResponse } from "../api/models";
+import { PostService } from "../api/services";
+import { firstValueFrom } from "rxjs";
 
 @Component({
-  selector: "app-friend-post",
+  selector: "app-friend-twit",
   standalone: true,
   imports: [
     CommonModule,
-    PostComponent,
-    InfiniteScrollModule,
     ErrorComponent,
     SpinnerLoadComponent,
+    InfiniteScrollModule,
+    TwitComponent,
   ],
-  templateUrl: "./friend-post.component.html",
-  styleUrl: "./friend-post.component.css",
+  templateUrl: "./friend-twit.component.html",
+  styleUrl: "./friend-twit.component.css",
 })
-export class FriendPostComponent implements OnInit {
-  posts: PostResponse[] = [];
-  loading: boolean = false;
+export class FriendTwitComponent implements OnInit {
+  twits: PostResponse[] = [];
   error: boolean = false;
-  private currentUser: UserResponse = {};
-  private page: number = 0;
+  loading: boolean = false;
+  page: number = 0;
 
   constructor(private postService: PostService) {}
 
   async ngOnInit() {
     this.loading = true;
     await firstValueFrom(
-      this.postService.getPostsOfTypePostFollowings({ page: this.page })
+      this.postService.getPostsOfTypeTwitFollowings({ page: this.page })
     )
       .then((posts) => {
-        posts.forEach((post) => this.posts.push(post));
+        posts.forEach((post) => this.twits.push(post));
       })
       .catch(() => {
         this.loading = false;
@@ -45,14 +44,15 @@ export class FriendPostComponent implements OnInit {
         this.loading = false;
       });
   }
+
   async onScroll() {
     this.loading = true;
     this.page++;
     await firstValueFrom(
-      this.postService.getPostsOfTypePostFollowings({ page: this.page })
+      this.postService.getPostsOfTypeTwitFollowings({ page: this.page })
     )
       .then((posts) => {
-        posts.forEach((post) => this.posts.push(post));
+        posts.forEach((post) => this.twits.push(post));
       })
       .catch(() => {
         this.error = true;
