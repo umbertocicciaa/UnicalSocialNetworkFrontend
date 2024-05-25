@@ -11,6 +11,7 @@ import { CreatePostComponent } from "./create-post/create-post.component";
 import { CreateTwitComponent } from "./create-twit/create-twit.component";
 import { FriendPostComponent } from "./friend-post/friend-post.component";
 import { ExploreTwitComponent } from "./explore-twit/explore-twit.component";
+import { FriendTwitComponent } from "./friend-twit/friend-twit.component";
 
 export const routes: Routes = [
   {
@@ -63,6 +64,11 @@ export const routes: Routes = [
       {
         path: "friend-post",
         component: FriendPostComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "friend-twit",
+        component: FriendTwitComponent,
         canActivate: [authGuard],
       },
     ],
