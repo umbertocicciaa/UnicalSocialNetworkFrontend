@@ -7,5 +7,16 @@
       </mat-form-field>
       <button mat-raised-button color="primary" type="submit" [disabled]="!tweetForm.form.valid">Tweet</button>
     </form>
+    <div *ngIf="loading">
+      <app-spinner-load></app-spinner-load>
+    </div>
+    <div>
+      <p style="text-align: center;
+                margin:10px"
+                *ngIf="creato">Post creato correttamente</p>
+    </div>
+  </div>
+  <div *ngIf="error">
+    <app-error></app-error>
   </div>
   
