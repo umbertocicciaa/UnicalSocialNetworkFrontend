@@ -53,7 +53,10 @@ export class CreatePostComponent {
         },
       })
     )
-      .then(() => (this.error = false))
+      .then(() => {
+        this.error = false;
+        this.completato = true;
+      })
       .catch((err) => {
         this.error = true;
       })
