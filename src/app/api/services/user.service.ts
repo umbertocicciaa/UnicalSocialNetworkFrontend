@@ -68,7 +68,7 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updateProfileUser$Response(params?: UpdateProfileUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserResponse>> {
+  updateProfileUser$Response(params: UpdateProfileUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserResponse>> {
     return updateProfileUser(this.http, this.rootUrl, params, context);
   }
 
@@ -78,7 +78,7 @@ export class UserService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  updateProfileUser(params?: UpdateProfileUser$Params, context?: HttpContext): Observable<UserResponse> {
+  updateProfileUser(params: UpdateProfileUser$Params, context?: HttpContext): Observable<UserResponse> {
     return this.updateProfileUser$Response(params, context).pipe(
       map((r: StrictHttpResponse<UserResponse>): UserResponse => r.body)
     );

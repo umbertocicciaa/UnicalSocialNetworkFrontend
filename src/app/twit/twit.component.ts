@@ -50,8 +50,8 @@ export class TwitComponent implements OnInit {
     });
   }
 
-  toggleComments(tweet: any): void {
-    tweet.showComments = !tweet.showComments;
+  toggleComments() {
+    this.router.navigate(["/home/comments/" + this.tweet.id]);
   }
 
   goToProfile(username: string | undefined) {

@@ -1,0 +1,19 @@
+<div class="comments-container mat-elevation-z8" *ngIf="!loading">
+    <h2>Comments</h2>
+    <div *ngFor="let comment of comments" class="comment">
+      <app-comment [comment]="comment"></app-comment>
+    </div>
+    <form (ngSubmit)="onSubmit()" #commentForm="ngForm" class="comment-form">
+      <mat-form-field class="full-width">
+        <mat-label>Add a comment</mat-label>
+        <input matInput [(ngModel)]="newComment" name="newComment" required />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!commentForm.form.valid">Post</button>
+    </form>
+    <div *ngIf="completato">
+      <p style="text-align: center;
+      margin:10px"
+      *ngIf="completato">Commento creato correttamente</p>
+    </div>
+  </div>
+  <app-spinner-load *ngIf="loading"></app-spinner-load>

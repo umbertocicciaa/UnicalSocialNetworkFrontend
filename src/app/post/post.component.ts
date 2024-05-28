@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { CommentService } from "../api/services/comment.service";
 import { UserService } from "../api/services/user.service";
 import { PostResponse } from "../api/models";
@@ -51,8 +51,8 @@ export class PostComponent {
     });
   }
 
-  toggleComments(post: any): void {
-    post.showComments = !post.showComments;
+  toggleComments() {
+    this.router.navigate(["/home/comments/" + this.post.id]);
   }
 
   goToProfile(username: string | undefined) {

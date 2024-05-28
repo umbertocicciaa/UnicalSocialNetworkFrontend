@@ -9,26 +9,14 @@
       <div class="tweet-content">
         <p>{{ tweet.caption }}</p>
       </div>
-      
       <div class="tweet-actions">
-        
         <button (click)="likeTweet(tweet)" class="action-btn">
             <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
         </button>
         {{ tweet.like }}
-        <!--
-        <button (click)="toggleComments(tweet)" class="action-btn">
-          <i class="fa fa-comment"></i> {{ tweet.comments.length }}
-        </button>
       </div>
-      <div class="tweet-comments" *ngIf="tweet.showComments">
-        <div *ngFor="let comment of tweet.comments" class="comment">
-          <strong>{{ comment.user }}</strong> {{ comment.text }}
-        </div> 
-        -->
+      <div class="tweet-actions">
+        <button (click)="toggleComments()" class="action-btn">Comments</button>
       </div>
-      <!--
-      <button *ngIf="tweet.comments.length > 0 && !tweet.showComments" (click)="toggleComments(tweet)" class="view-comments-btn">View Comments</button>
-      -->
 </div>
   

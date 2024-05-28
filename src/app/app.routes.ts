@@ -13,6 +13,7 @@ import { FriendPostComponent } from "./friend-post/friend-post.component";
 import { ExploreTwitComponent } from "./explore-twit/explore-twit.component";
 import { FriendTwitComponent } from "./friend-twit/friend-twit.component";
 import { EditProfileComponent } from "./edit-profile/edit-profile.component";
+import { ExploreCommentComponent } from "./explore-comment/explore-comment.component";
 
 export const routes: Routes = [
   {
@@ -77,11 +78,16 @@ export const routes: Routes = [
         component: EditProfileComponent,
         canActivate: [authGuard],
       },
+      {
+        path: "comments/:postId",
+        component: ExploreCommentComponent,
+        canActivate: [authGuard],
+      },
     ],
     canActivate: [authGuard],
   },
   {
-    path: "**", // wildcard route for 404 not found page
+    path: "**",
     component: NotFoundComponent,
     pathMatch: "full",
   },

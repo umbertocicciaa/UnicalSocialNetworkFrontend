@@ -7,6 +7,7 @@ export { CommentCreatedResponse } from './models/comment-created-response';
 export { CommentCreateRequest } from './models/comment-create-request';
 export { CommentDeletedResponse } from './models/comment-deleted-response';
 export { CommentResponse } from './models/comment-response';
+export { CommentUserResponse } from './models/comment-user-response';
 export { EsisteMipiaceResponse } from './models/esiste-mipiace-response';
 export { FollowerCreatedResponse } from './models/follower-created-response';
 export { FollowerNumberResponse } from './models/follower-number-response';

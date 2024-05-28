@@ -16,23 +16,9 @@
           <mat-icon svgIcon="thumbs-up" aria-hidden="false" aria-label="Example thumbs up SVG icon">
           </mat-icon>
       </button>
-      {{post.like}}
-    <!--
-      <button (click)="toggleComments(post)" class="action-btn">
-        <i class="fa fa-comment"></i>
-      </button>
+      <p>{{post.like}}</p>
     </div>
-    <div class="post-likes">{{ post.likes }} likes</div>
-    <div class="post-caption">
-      <strong>{{ post.user.username }}</strong> {{ post.caption }}
+    <div class="post-actions">
+      <button (click)="toggleComments()" class="action-btn">Comments</button>
     </div>
-    <div class="post-comments" *ngIf="post.showComments">
-      <div *ngFor="let comment of post.comments" class="comment">
-        <strong>{{ comment.user }}</strong> {{ comment.text }}
-      </div>
-    -->
-    </div>
-    <!--
-    <button *ngIf="post.comments.length > 0 && !post.showComments" (click)="toggleComments(post)" class="view-comments-btn">View Comments</button>
-    -->
 </div>
