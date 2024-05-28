@@ -39,6 +39,7 @@ export class FriendTwitComponent implements OnInit {
       })
       .catch(() => {
         this.loading = false;
+        this.error = true;
       })
       .finally(() => {
         this.loading = false;
