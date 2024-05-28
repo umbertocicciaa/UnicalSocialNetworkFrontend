@@ -6,6 +6,7 @@ import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { UserService } from "../api/services";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "app-edit-profile",
@@ -29,7 +30,8 @@ export class EditProfileComponent {
   bio: string = "";
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile!: File;
-
+  loading: boolean = false;
+  completato: boolean = false;
   constructor(private userService: UserService) {}
 
   onFileSelected(event: Event): void {
@@ -43,14 +45,24 @@ export class EditProfileComponent {
   }
 
   async onSubmit() {
-    if (!this.selectedFile) return;
-    const base64String = await this.convertFileToBase64(this.selectedFile);
-    console.log("Profile updated");
-    console.log("First Name:", this.firstName);
-    console.log("Last Name:", this.lastName);
-    console.log("Email:", this.email);
-    console.log("Bio:", this.bio);
-    console.log("Profile Image:", base64String);
+    this.loading = true;
+    let base64String;
+    if (this.selectedFile)
+      base64String = await this.convertFileToBase64(this.selectedFile);
+    await firstValueFrom(
+      this.userService.updateProfileUser({
+        body: {
+          bio: this.bio ?? "",
+          email: this.email ?? "",
+          firstName: this.firstName ?? "",
+          lastName: this.lastName ?? "",
+          photo: base64String ?? "",
+        },
+      })
+    )
+      .then(() => (this.completato = true))
+      .catch(() => (this.completato = false))
+      .finally(() => (this.loading = false));
   }
 
   private convertFileToBase64(file: File): Promise<string> {

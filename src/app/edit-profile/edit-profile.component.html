@@ -28,7 +28,13 @@
         <textarea matInput [(ngModel)]="bio" name="bio"></textarea>
       </mat-form-field>
   
-      <button mat-raised-button color="primary" type="submit" [disabled]="!profileForm.form.valid">Save Changes</button>
+      <button mat-raised-button color="primary" type="submit">Save Changes</button>
     </form>
+    <app-spinner-load *ngIf="loading"></app-spinner-load>
+    <div>
+      <p style="text-align: center;
+                margin:10px"
+                *ngIf="completato">Profilo modificato correttamente</p>
+    </div>
   </div>
   
