@@ -23,9 +23,17 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  navigateToUsername() {
+  async navigateToUsername() {
     if (this.currentUser?.profileName)
       this.router.navigate(["/home/profile/" + this.currentUser?.profileName]);
+    else {
+      await firstValueFrom(this.userService.getLoggedUsers()).then((user) => {
+        this.currentUser = user;
+        this.router.navigate([
+          "/home/profile/" + this.currentUser?.profileName,
+        ]);
+      });
+    }
   }
 
   logout() {}
