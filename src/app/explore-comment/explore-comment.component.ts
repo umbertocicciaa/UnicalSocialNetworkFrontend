@@ -9,6 +9,7 @@ import { firstValueFrom } from "rxjs";
 import { CommentCreatedResponse, CommentResponse } from "../api/models";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 import { CommentComponent } from "../comment/comment.component";
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 @Component({
   selector: "app-explore-comment",
@@ -22,6 +23,7 @@ import { CommentComponent } from "../comment/comment.component";
     FormsModule,
     SpinnerLoadComponent,
     CommentComponent,
+    InfiniteScrollModule,
   ],
   templateUrl: "./explore-comment.component.html",
   styleUrl: "./explore-comment.component.css",
@@ -77,5 +79,22 @@ export class ExploreCommentComponent implements OnInit {
       })
       .finally(() => (this.loading = false));
   }
+
+  async onScroll() {
+    this.page++;
+    this.loading = true;
+    await firstValueFrom(
+      this.commentService.getComment({
+        post_id: this.postId,
+        page: this.page,
+      })
+    )
+      .then((comments) => {
+        comments.forEach((comment) => this.comments.push(comment));
+      })
+      .catch(() => {})
+      .finally(() => {
+        this.loading = false;
+      });
+  }
 }
-export { CommentComponent };
