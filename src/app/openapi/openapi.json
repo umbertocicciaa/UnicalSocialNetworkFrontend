@@ -89,7 +89,8 @@
                 "$ref": "#/components/schemas/UpdateUserRequest"
               }
             }
-          }
+          },
+          "required": true
         },
         "responses": {
           "400": {
@@ -2001,8 +2002,7 @@
             "format": "int32"
           },
           "createdByUserid": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/CommentUserResponse"
           },
           "postId": {
             "type": "integer",
@@ -2014,6 +2014,25 @@
           },
           "comment": {
             "type": "string"
+          }
+        }
+      },
+      "CommentUserResponse": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "username": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "byte"
+            }
           }
         }
       },

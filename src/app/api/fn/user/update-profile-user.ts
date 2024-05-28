@@ -10,10 +10,10 @@ import { UpdateUserRequest } from '../../models/update-user-request';
 import { UserResponse } from '../../models/user-response';
 
 export interface UpdateProfileUser$Params {
-      body?: UpdateUserRequest
+      body: UpdateUserRequest
 }
 
-export function updateProfileUser(http: HttpClient, rootUrl: string, params?: UpdateProfileUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserResponse>> {
+export function updateProfileUser(http: HttpClient, rootUrl: string, params: UpdateProfileUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserResponse>> {
   const rb = new RequestBuilder(rootUrl, updateProfileUser.PATH, 'put');
   if (params) {
     rb.body(params.body, 'application/json');
