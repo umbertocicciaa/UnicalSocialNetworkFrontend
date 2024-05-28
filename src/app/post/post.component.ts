@@ -26,7 +26,7 @@ const THUMBUP_ICON =
   templateUrl: "./post.component.html",
   styleUrl: "./post.component.css",
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   @Input()
   post!: PostResponse;
   constructor(
@@ -42,8 +42,6 @@ export class PostComponent implements OnInit {
       sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON)
     );
   }
-
-  ngOnInit(): void {}
 
   async likePost(post: PostResponse) {
     await firstValueFrom(
