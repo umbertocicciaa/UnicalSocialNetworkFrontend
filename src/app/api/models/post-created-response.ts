@@ -4,7 +4,7 @@ export interface PostCreatedResponse {
   caption?: string;
   id?: number;
   like?: number;
-  pics?: Array<string>;
+  pics?: string;
   postType?: string;
   userId?: number;
 }

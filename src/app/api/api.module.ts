@@ -4,12 +4,12 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { UserService } from './services/user.service';
 import { PostService } from './services/post.service';
 import { MessageService } from './services/message.service';
 import { FollowerService } from './services/follower.service';
 import { CommentService } from './services/comment.service';
 import { AuthService } from './services/auth.service';
-import { UserService } from './services/user.service';
 import { MipiaceService } from './services/mipiace.service';
 
 /**
@@ -20,12 +20,12 @@ import { MipiaceService } from './services/mipiace.service';
   exports: [],
   declarations: [],
   providers: [
+    UserService,
     PostService,
     MessageService,
     FollowerService,
     CommentService,
     AuthService,
-    UserService,
     MipiaceService,
     ApiConfiguration
   ],

@@ -6,15 +6,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PostCreatedResponse } from '../../models/post-created-response';
-import { PostCreateRequest } from '../../models/post-create-request';
+import { UpdateUserRequest } from '../../models/update-user-request';
+import { UserResponse } from '../../models/user-response';
 
-export interface CreatePost$Params {
-      body: PostCreateRequest
+export interface UpdateProfileUser$Params {
+      body?: UpdateUserRequest
 }
 
-export function createPost(http: HttpClient, rootUrl: string, params: CreatePost$Params, context?: HttpContext): Observable<StrictHttpResponse<PostCreatedResponse>> {
-  const rb = new RequestBuilder(rootUrl, createPost.PATH, 'post');
+export function updateProfileUser(http: HttpClient, rootUrl: string, params?: UpdateProfileUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserResponse>> {
+  const rb = new RequestBuilder(rootUrl, updateProfileUser.PATH, 'put');
   if (params) {
     rb.body(params.body, 'application/json');
   }
@@ -24,9 +24,9 @@ export function createPost(http: HttpClient, rootUrl: string, params: CreatePost
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PostCreatedResponse>;
+      return r as StrictHttpResponse<UserResponse>;
     })
   );
 }
 
-createPost.PATH = '/api/v1/Post/posts/posts';
+updateProfileUser.PATH = '/api/v1/User/users/username';

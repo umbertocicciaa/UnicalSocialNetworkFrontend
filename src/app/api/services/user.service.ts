@@ -23,6 +23,8 @@ import { getUsersById } from '../fn/user/get-users-by-id';
 import { GetUsersById$Params } from '../fn/user/get-users-by-id';
 import { getUsersOrderedBySignUp } from '../fn/user/get-users-ordered-by-sign-up';
 import { GetUsersOrderedBySignUp$Params } from '../fn/user/get-users-ordered-by-sign-up';
+import { updateProfileUser } from '../fn/user/update-profile-user';
+import { UpdateProfileUser$Params } from '../fn/user/update-profile-user';
 import { UserCountResponse } from '../models/user-count-response';
 import { UserResponse } from '../models/user-response';
 
@@ -30,6 +32,56 @@ import { UserResponse } from '../models/user-response';
 export class UserService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `getUserLikeUsername()` */
+  static readonly GetUserLikeUsernamePath = '/api/v1/User/users/username';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getUserLikeUsername()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getUserLikeUsername$Response(params: GetUserLikeUsername$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserResponse>>> {
+    return getUserLikeUsername(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getUserLikeUsername$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getUserLikeUsername(params: GetUserLikeUsername$Params, context?: HttpContext): Observable<Array<UserResponse>> {
+    return this.getUserLikeUsername$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<UserResponse>>): Array<UserResponse> => r.body)
+    );
+  }
+
+  /** Path part for operation `updateProfileUser()` */
+  static readonly UpdateProfileUserPath = '/api/v1/User/users/username';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `updateProfileUser()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateProfileUser$Response(params?: UpdateProfileUser$Params, context?: HttpContext): Observable<StrictHttpResponse<UserResponse>> {
+    return updateProfileUser(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `updateProfileUser$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  updateProfileUser(params?: UpdateProfileUser$Params, context?: HttpContext): Observable<UserResponse> {
+    return this.updateProfileUser$Response(params, context).pipe(
+      map((r: StrictHttpResponse<UserResponse>): UserResponse => r.body)
+    );
   }
 
   /** Path part for operation `getUsers()` */
@@ -79,31 +131,6 @@ export class UserService extends BaseService {
   getUsersById(params: GetUsersById$Params, context?: HttpContext): Observable<UserResponse> {
     return this.getUsersById$Response(params, context).pipe(
       map((r: StrictHttpResponse<UserResponse>): UserResponse => r.body)
-    );
-  }
-
-  /** Path part for operation `getUserLikeUsername()` */
-  static readonly GetUserLikeUsernamePath = '/api/v1/User/users/username';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getUserLikeUsername()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUserLikeUsername$Response(params: GetUserLikeUsername$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserResponse>>> {
-    return getUserLikeUsername(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getUserLikeUsername$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getUserLikeUsername(params: GetUserLikeUsername$Params, context?: HttpContext): Observable<Array<UserResponse>> {
-    return this.getUserLikeUsername$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<UserResponse>>): Array<UserResponse> => r.body)
     );
   }
 
