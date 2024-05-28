@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   username: string = "";
   fullName: string = "";
   bio: string = "";
-  image: String = "";
+  image: string = "";
   postsCount: number = 0;
   followersCount: number = 0;
   followingCount: number = 0;
