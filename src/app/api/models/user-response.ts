@@ -7,6 +7,6 @@ export interface UserResponse {
   id?: number;
   lastName?: string;
   profileName?: string;
-  profilePicture?: Array<string>;
+  profilePicture?: string;
   signupDate?: string;
 }

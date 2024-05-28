@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   username: string = "";
   fullName: string = "";
   bio: string = "";
+  image: String = "";
   postsCount: number = 0;
   followersCount: number = 0;
   followingCount: number = 0;
@@ -55,6 +56,7 @@ export class ProfileComponent implements OnInit {
       if (currentUser) {
         this.userId = currentUser.id ?? -1;
         this.username = currentUser.profileName ?? "";
+        this.image = `data:image/png;base64,${currentUser.profilePicture}`;
         this.fullName =
           (currentUser.firstName ?? "") + " " + (currentUser.lastName ?? "");
         this.bio = currentUser.bio ?? "";
