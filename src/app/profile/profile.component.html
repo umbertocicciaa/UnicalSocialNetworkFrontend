@@ -1,10 +1,11 @@
-<div class="profile-container">
-    <div class="profile-header" *ngIf="!error">
+<div class="profile-container" *ngIf="!error && !loadingPage">
+    <div class="profile-header">
       <img src="https://via.placeholder.com/150" alt="User Avatar" class="profile-avatar" />
       <div class="profile-info">
         <div class="profile-username">
           <h2>{{ username }}</h2>
-          <button class="edit-profile-btn">Edit Profile</button>
+          <button class="edit-profile-btn"  (click)="editProfile()" *ngIf="sameUser">Edit Profile</button>
+          <button class="edit-profile-btn"  (click)="followUser()" *ngIf="!sameUser && !seguiUtente">Follow</button>
         </div>
         <ul class="profile-stats">
           <li><strong>{{ postsCount }}</strong> posts</li>
@@ -17,11 +18,7 @@
         </div>
       </div>
     </div>
-    <div class="profile-posts" *ngIf="!error">
-      <div class="post" *ngFor="let post of posts">
-        <img [src]="post.image" alt="Post Image" class="post-image" />
-      </div>
-    </div>
-    <app-error *ngIf="error"></app-error>
 </div>
+<app-spinner-load *ngIf="loadingPage || loadingOperation"></app-spinner-load>
+<app-error *ngIf="error"></app-error>
   
