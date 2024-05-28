@@ -12,6 +12,7 @@ import { CreateTwitComponent } from "./create-twit/create-twit.component";
 import { FriendPostComponent } from "./friend-post/friend-post.component";
 import { ExploreTwitComponent } from "./explore-twit/explore-twit.component";
 import { FriendTwitComponent } from "./friend-twit/friend-twit.component";
+import { EditProfileComponent } from "./edit-profile/edit-profile.component";
 
 export const routes: Routes = [
   {
@@ -69,6 +70,11 @@ export const routes: Routes = [
       {
         path: "friend-twit",
         component: FriendTwitComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "edit-profile",
+        component: EditProfileComponent,
         canActivate: [authGuard],
       },
     ],
