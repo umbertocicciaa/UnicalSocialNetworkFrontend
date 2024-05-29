@@ -5,4 +5,5 @@
         <span class="username">{{ comment.createdByUserid?.username }}</span>
         <span class="text">{{ comment.comment }}</span>
     </div>
+    <button *ngIf="ownerIsLoggedUser()" (click)="deleteComment()">Delete Comment</button>
 </div>

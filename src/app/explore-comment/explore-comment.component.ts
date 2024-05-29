@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute } from "@angular/router";
-import { CommentService } from "../api/services";
+import { CommentService, UserService } from "../api/services";
 import { firstValueFrom } from "rxjs";
 import { CommentCreatedResponse, CommentResponse } from "../api/models";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
@@ -31,6 +31,7 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 export class ExploreCommentComponent implements OnInit {
   private postId: number = -1;
   private page: number = 0;
+  loggedUserId: number = -1;
   loading: boolean = false;
   completato: boolean = false;
   comments: CommentResponse[] = [];
@@ -38,6 +39,7 @@ export class ExploreCommentComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private userService: UserService,
     private commentService: CommentService
   ) {
     route.params.subscribe((params) => {
@@ -47,6 +49,9 @@ export class ExploreCommentComponent implements OnInit {
 
   async ngOnInit() {
     this.loading = true;
+    await firstValueFrom(this.userService.getLoggedUsers()).then(
+      (user) => (this.loggedUserId = user.id ?? -1)
+    );
     await firstValueFrom(
       this.commentService.getComment({
         post_id: this.postId,
@@ -96,5 +101,13 @@ export class ExploreCommentComponent implements OnInit {
       .finally(() => {
         this.loading = false;
       });
+  }
+
+  onCommentDeleted(commentId: number) {
+    this.comments = this.comments.filter((comment) => comment.id !== commentId);
+  }
+
+  loadingDelete(loading: boolean) {
+    this.loading = loading;
   }
 }

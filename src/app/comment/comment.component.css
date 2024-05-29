@@ -2,6 +2,15 @@
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+  justify-content: space-between;
+}
+
+.comment-content {
+  background: #f1f1f1;
+  padding: 10px;
+  border-radius: 10px;
+  flex-grow: 1;
+  margin-right: 10px;
 }
 
 .avatar {
@@ -20,9 +29,16 @@
   font-size: 14px;
 }
 
-.comment-content {
-  background: #f1f1f1;
-  padding: 10px;
-  border-radius: 10px;
-  flex-grow: 1;
+button {
+  align-self: flex-start;
+  background-color: #ff4d4d; /* Aggiungi uno stile per migliorare l'aspetto */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ff1a1a; /* Cambia colore al passaggio del mouse */
 }
