@@ -15,6 +15,7 @@ Questo progetto è un social network sviluppato utilizzando Angular che combina 
 ## Funzionalità Future
 
 - **Messaggistica:** Sarà implementata una funzionalità di messaggistica per permettere agli utenti di inviare messaggi diretti.
+- **UI:** Migliorare l'interfaccia utente e renderla più responsive.
 
 ## Requisiti
 
