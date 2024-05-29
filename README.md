@@ -1,27 +1,83 @@
-# Frontend
+# Social Network Angular Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.1.
+## Descrizione del Progetto
 
-## Development server
+Questo progetto è un social network sviluppato utilizzando Angular che combina le funzionalità di Twitter e Instagram. Gli utenti possono postare foto e immagini, commentare i post, mettere "like" ai post, seguire altri utenti, visualizzare i profili degli amici e molte altre funzioni tipiche dei social network. In futuro, verrà implementata anche la funzionalità di messaggistica.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Funzionalità Principali
 
-## Code scaffolding
+- **Postare Foto e Immagini:** Gli utenti possono caricare e condividere foto e immagini.
+- **Commentare i Post:** Gli utenti possono commentare i post degli altri utenti.
+- **Mettere Like ai Post:** Gli utenti possono mettere "like" ai post per esprimere apprezzamento.
+- **Seguire gli Utenti:** Gli utenti possono seguire altri utenti per vedere i loro post nel feed.
+- **Visualizzare i Profili degli Amici:** Gli utenti possono visitare i profili degli amici per vedere i loro post e attività.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Funzionalità Future
 
-## Build
+- **Messaggistica:** Sarà implementata una funzionalità di messaggistica per permettere agli utenti di inviare messaggi diretti.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Requisiti
 
-## Running unit tests
+- Node.js
+- Angular CLI
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Installazione
 
-## Running end-to-end tests
+1. **Clonare il repository:**
+   ```bash
+   git clone <URL del repository>
+   ```
+2. **Navigare nella directory del progetto:**
+   ```bash
+   cd nome-del-progetto
+   ```
+3. **Installare le dipendenze:**
+   ```bash
+   npm install
+   ```
+4. **Avviare il server di sviluppo:**
+   ```bash
+   ng serve
+   ```
+5. **Aprire il progetto nel browser:**
+   Visita `http://localhost:4200/` nel tuo browser per vedere il progetto in azione.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Struttura del Progetto
 
-## Further help
+- **src/app:** Contiene i componenti Angular, i servizi e i moduli.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Componenti Principali
+
+- **HomeComponent:** La pagina principale dove gli utenti possono vedere i post degli utenti che seguono.
+- **ProfileComponent:** La pagina del profilo utente dove è possibile vedere i post di un singolo utente.
+- **PostComponent:** Il componente che gestisce i singoli post, inclusi i commenti e i like.
+- **FollowComponent:** Il componente che gestisce il follow e unfollow degli utenti.
+
+## Servizi Principali
+
+- **PostService:** Gestisce le operazioni relative ai post, come creare, recuperare e commentare i post.
+- **UserService:** Gestisce le operazioni relative agli utenti, come il login, la registrazione e il follow/unfollow.
+- **AuthService:** Gestisce l'autenticazione degli utenti.
+
+## Contribuire
+
+Le contribuzioni sono benvenute! Per favore, segui questi passaggi:
+
+1. **Fork del repository**
+2. **Crea un nuovo branch:**
+   ```bash
+   git checkout -b feature/nome-della-feature
+   ```
+3. **Fai le modifiche necessarie e commit:**
+   ```bash
+   git commit -m 'Aggiunta una nuova funzionalità'
+   ```
+4. **Push al branch:**
+   ```bash
+   git push origin feature/nome-della-feature
+   ```
+5. **Crea una Pull Request**
+
+## Contatti
+
+Per qualsiasi domanda o suggerimento, sentiti libero di contattarmi all'indirizzo email: umbertociccia@icloud.com.
