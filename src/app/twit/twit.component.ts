@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { PostResponse } from "../api/models";
-import { PostService } from "../api/services";
+import { PostService, UserService } from "../api/services";
 import { firstValueFrom } from "rxjs";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -24,10 +24,12 @@ const THUMBUP_ICON =
   templateUrl: "./twit.component.html",
   styleUrl: "./twit.component.css",
 })
-export class TwitComponent implements OnInit {
+export class TwitComponent {
   @Input()
   tweet!: PostResponse;
-
+  @Input()
+  loggedUserId: number = -1;
+  @Output() postDeleted = new EventEmitter<number>();
   constructor(
     private postService: PostService,
     iconRegistry: MatIconRegistry,
@@ -39,9 +41,6 @@ export class TwitComponent implements OnInit {
       sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON)
     );
   }
-
-  ngOnInit() {}
-
   async likeTweet(tweet: PostResponse) {
     await firstValueFrom(
       this.postService.addLike({ body: { postId: tweet.id ?? -1 } })
@@ -56,5 +55,17 @@ export class TwitComponent implements OnInit {
 
   goToProfile(username: string | undefined) {
     if (username) this.router.navigate(["/home/profile/" + username]);
+  }
+  async deleteTwit() {
+    await firstValueFrom(
+      this.postService.deletePost({ postId: this.tweet.id ?? -1 })
+    ).then((deleted) => {
+      if (deleted?.deleted) {
+        this.postDeleted.emit(this.tweet.id);
+      }
+    });
+  }
+  ownerIsLoggedUser(): boolean {
+    return this.loggedUserId === this.tweet.user?.id;
   }
 }

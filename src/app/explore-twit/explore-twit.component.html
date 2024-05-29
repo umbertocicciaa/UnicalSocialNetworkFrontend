@@ -5,7 +5,9 @@
       (scrolled)="onScroll()"
       [scrollWindow]="false" 
       class="explore-container">
-         <app-twit  *ngFor="let twit of twits" [tweet]="twit"></app-twit>
+        <div *ngFor="let twit of twits">
+         <app-twit (postDeleted)="onPostDeleted($event)" [tweet]="twit" [loggedUserId]="loggedUserId"></app-twit>
+        </div>
       </div>
       <div *ngIf="loading">
         <app-spinner-load></app-spinner-load>

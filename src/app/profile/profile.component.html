@@ -6,6 +6,8 @@
         <div class="profile-username">
           <h2>{{ username }}</h2>
           <button class="edit-profile-btn"  (click)="editProfile()" *ngIf="sameUser">Edit Profile</button>
+          <button class="edit-profile-btn"  (click)="viewPost()" >Posts</button>
+          <button class="edit-profile-btn"  (click)="viewTwit()" >Twits</button>
           <button class="edit-profile-btn"  (click)="followUser()" *ngIf="!sameUser && !seguiUtente">Follow</button>
         </div>
         <ul class="profile-stats">

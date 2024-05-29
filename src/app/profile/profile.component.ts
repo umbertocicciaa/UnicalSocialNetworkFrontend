@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, RouteReuseStrategy } from "@angular/router";
+import { ActivatedRoute, RouterOutlet } from "@angular/router";
 import { FollowerService, PostService, UserService } from "../api/services";
 import { firstValueFrom } from "rxjs";
 import { ErrorComponent } from "../error/error.component";
@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: "app-profile",
   standalone: true,
-  imports: [CommonModule, ErrorComponent, SpinnerLoadComponent],
+  imports: [CommonModule, ErrorComponent, SpinnerLoadComponent, RouterOutlet],
   templateUrl: "./profile.component.html",
   styleUrl: "./profile.component.css",
 })
@@ -124,5 +124,13 @@ export class ProfileComponent implements OnInit {
 
   editProfile() {
     this.router.navigate(["/home/edit-profile"]);
+  }
+
+  viewTwit() {
+    this.router.navigate(["/home/profile/" + this.userId + "/twits"]);
+  }
+
+  viewPost() {
+    this.router.navigate(["/home/profile/" + this.userId + "/posts"]);
   }
 }

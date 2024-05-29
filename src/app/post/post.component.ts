@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { CommentService } from "../api/services/comment.service";
 import { UserService } from "../api/services/user.service";
 import { PostResponse } from "../api/models";
@@ -29,6 +29,9 @@ const THUMBUP_ICON =
 export class PostComponent {
   @Input()
   post!: PostResponse;
+  @Input()
+  loggedUserId: number = -1;
+  @Output() postDeleted = new EventEmitter<number>();
   constructor(
     private userService: UserService,
     private commentService: CommentService,
@@ -57,5 +60,17 @@ export class PostComponent {
 
   goToProfile(username: string | undefined) {
     if (username) this.router.navigate(["/home/profile/" + username]);
+  }
+  ownerIsLoggedUser(): boolean {
+    return this.loggedUserId === this.post.user?.id;
+  }
+  async deletePost() {
+    await firstValueFrom(
+      this.postService.deletePost({ postId: this.post.id ?? -1 })
+    ).then((deleted) => {
+      if (deleted?.deleted) {
+        this.postDeleted.emit(this.post.id);
+      }
+    });
   }
 }
