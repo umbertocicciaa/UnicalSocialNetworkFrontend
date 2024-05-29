@@ -14,6 +14,9 @@ import { ExploreTwitComponent } from "./explore-twit/explore-twit.component";
 import { FriendTwitComponent } from "./friend-twit/friend-twit.component";
 import { EditProfileComponent } from "./edit-profile/edit-profile.component";
 import { ExploreCommentComponent } from "./explore-comment/explore-comment.component";
+import { MessageComponent } from "./message/message.component";
+import { UserPostComponent } from "./user-post/user-post.component";
+import { UserTwitComponent } from "./user-twit/user-twit.component";
 
 export const routes: Routes = [
   {
@@ -36,6 +39,16 @@ export const routes: Routes = [
       {
         path: "profile/:username",
         component: ProfileComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "profile/:id/posts",
+        component: UserPostComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "profile/:id/twits",
+        component: UserTwitComponent,
         canActivate: [authGuard],
       },
       {
@@ -81,6 +94,11 @@ export const routes: Routes = [
       {
         path: "comments/:postId",
         component: ExploreCommentComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "message/:userId",
+        component: MessageComponent,
         canActivate: [authGuard],
       },
     ],
