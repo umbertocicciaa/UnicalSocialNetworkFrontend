@@ -6,6 +6,7 @@ import { firstValueFrom } from "rxjs";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
+import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 
 const THUMBUP_ICON =
   `
@@ -20,7 +21,7 @@ const THUMBUP_ICON =
 @Component({
   selector: "app-twit",
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, SpinnerLoadComponent],
   templateUrl: "./twit.component.html",
   styleUrl: "./twit.component.css",
 })
@@ -30,6 +31,9 @@ export class TwitComponent {
   @Input()
   loggedUserId: number = -1;
   @Output() postDeleted = new EventEmitter<number>();
+
+  loadingDelete: boolean = false;
+
   constructor(
     private postService: PostService,
     iconRegistry: MatIconRegistry,
@@ -57,13 +61,18 @@ export class TwitComponent {
     if (username) this.router.navigate(["/home/profile/" + username]);
   }
   async deleteTwit() {
+    this.loadingDelete = true;
     await firstValueFrom(
       this.postService.deletePost({ postId: this.tweet.id ?? -1 })
-    ).then((deleted) => {
-      if (deleted?.deleted) {
-        this.postDeleted.emit(this.tweet.id);
-      }
-    });
+    )
+      .then((deleted) => {
+        if (deleted?.deleted) {
+          this.postDeleted.emit(this.tweet.id);
+        }
+      })
+      .finally(() => {
+        this.loadingDelete = false;
+      });
   }
   ownerIsLoggedUser(): boolean {
     return this.loggedUserId === this.tweet.user?.id;

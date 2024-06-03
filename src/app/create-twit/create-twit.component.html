@@ -1,22 +1,19 @@
 <div class="create-tweet-container mat-elevation-z8">
-    <h2>Create a New Twit</h2>
-    <form (ngSubmit)="onSubmit()" #tweetForm="ngForm">
-      <mat-form-field class="tweet-field" appearance="fill">
-        <mat-label>What's happening?</mat-label>
-        <textarea matInput [(ngModel)]="tweetText" name="tweetText" required maxlength="280"></textarea>
-      </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!tweetForm.form.valid">Tweet</button>
-    </form>
-    <div *ngIf="loading">
-      <app-spinner-load></app-spinner-load>
-    </div>
-    <div>
-      <p style="text-align: center;
-                margin:10px"
-                *ngIf="creato">Post creato correttamente</p>
-    </div>
+  <h2>Create a New Twit</h2>
+  <form [formGroup]="tweetForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="tweet-field" appearance="fill">
+      <mat-label>What's happening?</mat-label>
+      <textarea matInput formControlName="tweetText"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="tweetForm.invalid">Tweet</button>
+  </form>
+  <div *ngIf="loading">
+    <app-spinner-load></app-spinner-load>
   </div>
-  <div *ngIf="error">
-    <app-error></app-error>
+  <div>
+    <p style="text-align: center; margin:10px" *ngIf="creato">Post creato correttamente</p>
   </div>
-  
+</div>
+<div *ngIf="error">
+  <app-error></app-error>
+</div>

@@ -20,4 +20,5 @@
       <button (click)="toggleComments()" class="action-btn">Comments</button>
       <button *ngIf="ownerIsLoggedUser()" (click)="deletePost()">Delete</button>
     </div>
+    <app-spinner-load *ngIf="loadingDelete"></app-spinner-load>
 </div>

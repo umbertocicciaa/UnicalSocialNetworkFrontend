@@ -3,7 +3,15 @@ import { Component } from "@angular/core";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 import { ErrorComponent } from "../error/error.component";
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
-import { FormsModule } from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+} from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 import { UserService } from "../api/services";
 import { firstValueFrom } from "rxjs";
@@ -19,20 +27,49 @@ import { firstValueFrom } from "rxjs";
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    ReactiveFormsModule,
   ],
   templateUrl: "./edit-profile.component.html",
   styleUrl: "./edit-profile.component.css",
 })
 export class EditProfileComponent {
-  firstName: string = "";
-  lastName: string = "";
-  email: string = "";
-  bio: string = "";
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile!: File;
   loading: boolean = false;
   completato: boolean = false;
-  constructor(private userService: UserService) {}
+  profileForm: FormGroup;
+
+  constructor(private userService: UserService, private fb: FormBuilder) {
+    this.profileForm = this.fb.group(
+      {
+        firstName: [""],
+        lastName: [""],
+        email: [""],
+        bio: [""],
+        image: [null],
+      },
+      {
+        validators: this.atLeastOneRequiredValidator([
+          "firstName",
+          "lastName",
+          "email",
+          "bio",
+          "image",
+        ]),
+      }
+    );
+  }
+
+  atLeastOneRequiredValidator(fields: string[]): ValidatorFn {
+    return (form: AbstractControl): ValidationErrors | null => {
+      const atLeastOneFilled = fields.some((field) => {
+        const control = form.get(field);
+        return control && control.value;
+      });
+
+      return atLeastOneFilled ? null : { atLeastOneRequired: true };
+    };
+  }
 
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files![0];
@@ -45,17 +82,22 @@ export class EditProfileComponent {
   }
 
   async onSubmit() {
+    if (this.profileForm.invalid) {
+      return;
+    }
     this.loading = true;
     let base64String;
-    if (this.selectedFile)
-      base64String = await this.convertFileToBase64(this.selectedFile);
+    if (this.profileForm.get("image")?.value)
+      base64String = await this.convertFileToBase64(
+        this.profileForm.get("image")?.value
+      );
     await firstValueFrom(
       this.userService.updateProfileUser({
         body: {
-          bio: this.bio ?? "",
-          email: this.email ?? "",
-          firstName: this.firstName ?? "",
-          lastName: this.lastName ?? "",
+          bio: this.profileForm.get("bio")?.value ?? "",
+          email: this.profileForm.get("email")?.value ?? "",
+          firstName: this.profileForm.get("firstName")?.value ?? "",
+          lastName: this.profileForm.get("lastName")?.value ?? "",
           photo: base64String ?? "",
         },
       })

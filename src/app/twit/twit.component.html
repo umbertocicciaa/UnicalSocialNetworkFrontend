@@ -17,5 +17,6 @@
         <button (click)="toggleComments()" class="action-btn">Comments</button>
         <button *ngIf="ownerIsLoggedUser()" (click)="deleteTwit()" class="action-btn">Delete Twit</button>
       </div>
+      <app-spinner-load *ngIf="loadingDelete"></app-spinner-load>
 </div>
   

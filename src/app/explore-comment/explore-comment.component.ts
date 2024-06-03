@@ -1,7 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute } from "@angular/router";
 import { CommentService, UserService } from "../api/services";
@@ -16,17 +21,15 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
   standalone: true,
   imports: [
     CommonModule,
-    MatFormField,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatFormFieldModule,
-    FormsModule,
     SpinnerLoadComponent,
     CommentComponent,
     InfiniteScrollModule,
   ],
   templateUrl: "./explore-comment.component.html",
-  styleUrl: "./explore-comment.component.css",
+  styleUrls: ["./explore-comment.component.css"],
 })
 export class ExploreCommentComponent implements OnInit {
   private postId: number = -1;
@@ -35,13 +38,18 @@ export class ExploreCommentComponent implements OnInit {
   loading: boolean = false;
   completato: boolean = false;
   comments: CommentResponse[] = [];
-  newComment: string = "";
+  commentForm: FormGroup;
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private userService: UserService,
     private commentService: CommentService
   ) {
+    this.commentForm = this.fb.group({
+      newComment: ["", Validators.required],
+    });
+
     route.params.subscribe((params) => {
       this.postId = params["postId"];
     });
@@ -52,28 +60,17 @@ export class ExploreCommentComponent implements OnInit {
     await firstValueFrom(this.userService.getLoggedUsers()).then(
       (user) => (this.loggedUserId = user.id ?? -1)
     );
-    await firstValueFrom(
-      this.commentService.getComment({
-        post_id: this.postId,
-        page: this.page,
-      })
-    )
-      .then((comments) => {
-        comments.forEach((comment) => this.comments.push(comment));
-      })
-      .catch(() => {})
-      .finally(() => {
-        this.loading = false;
-      });
+    await this.loadComments();
   }
 
   async onSubmit() {
-    if (!this.newComment) return;
+    if (this.commentForm.invalid) return;
     this.loading = true;
+    const newComment = this.commentForm.get("newComment")?.value.trim();
     await firstValueFrom(
       this.commentService.createComment({
         body: {
-          comment: this.newComment.trim(),
+          comment: newComment,
           postId: this.postId,
         },
       })
@@ -81,6 +78,7 @@ export class ExploreCommentComponent implements OnInit {
       .then((comment: CommentCreatedResponse) => {
         this.comments.unshift(comment);
         this.completato = true;
+        this.commentForm.reset();
       })
       .finally(() => (this.loading = false));
   }
@@ -88,6 +86,10 @@ export class ExploreCommentComponent implements OnInit {
   async onScroll() {
     this.page++;
     this.loading = true;
+    await this.loadComments();
+  }
+
+  private async loadComments() {
     await firstValueFrom(
       this.commentService.getComment({
         post_id: this.postId,
@@ -95,9 +97,8 @@ export class ExploreCommentComponent implements OnInit {
       })
     )
       .then((comments) => {
-        comments.forEach((comment) => this.comments.push(comment));
+        this.comments.push(...comments);
       })
-      .catch(() => {})
       .finally(() => {
         this.loading = false;
       });

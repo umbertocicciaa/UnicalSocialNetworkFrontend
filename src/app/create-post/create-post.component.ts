@@ -1,34 +1,47 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 import { PostService } from "../api/services";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
-import { firstValueFrom } from "rxjs";
 import { ErrorComponent } from "../error/error.component";
+import { firstValueFrom } from "rxjs";
+
 @Component({
   selector: "app-create-post",
   standalone: true,
   imports: [
-    FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     CommonModule,
     MatInputModule,
+    MatButtonModule,
     SpinnerLoadComponent,
     ErrorComponent,
   ],
   templateUrl: "./create-post.component.html",
-  styleUrl: "./create-post.component.css",
+  styleUrls: ["./create-post.component.css"],
 })
 export class CreatePostComponent {
+  postForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
-  caption: string = "";
-  selectedFile!: File;
   loading: boolean = false;
   error: boolean = false;
   completato: boolean = false;
-  constructor(private postService: PostService) {}
+
+  constructor(private fb: FormBuilder, private postService: PostService) {
+    this.postForm = this.fb.group({
+      caption: ["", Validators.required],
+      mediaFile: [null, Validators.required],
+    });
+  }
 
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files![0];
@@ -36,19 +49,23 @@ export class CreatePostComponent {
 
     reader.onload = () => {
       this.imagePreview = reader.result;
+      this.postForm.patchValue({ mediaFile: file });
     };
-    this.selectedFile = file;
     reader.readAsDataURL(file);
   }
 
   async onSubmit() {
-    if (!this.selectedFile) return;
+    if (this.postForm.invalid) {
+      return;
+    }
     this.loading = true;
-    const base64String = await this.convertFileToBase64(this.selectedFile);
+    const base64String = await this.convertFileToBase64(
+      this.postForm.get("mediaFile")?.value
+    );
     await firstValueFrom(
       this.postService.createPost({
         body: {
-          caption: this.caption,
+          caption: this.postForm.get("caption")?.value,
           mediaFile: base64String,
         },
       })
@@ -56,8 +73,10 @@ export class CreatePostComponent {
       .then(() => {
         this.error = false;
         this.completato = true;
+        this.postForm.reset();
+        this.imagePreview = null;
       })
-      .catch((err) => {
+      .catch(() => {
         this.error = true;
       })
       .finally(() => (this.loading = false));

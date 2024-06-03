@@ -1,22 +1,24 @@
 <div>
   <div infiniteScroll 
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="150"
-  (scrolled)="onScroll()"
-  [scrollWindow]="false" class="comments-container mat-elevation-z8">
-      <h2>Comments</h2>
-        <div *ngFor="let comment of comments" class="comment">
-          <app-comment (loadingDelete)="loadingDelete($event)" (commentDeleted)="onCommentDeleted($event)" [loggedUserId]="loggedUserId" [comment]="comment"></app-comment>
-      </div>
-      <app-spinner-load *ngIf="loading"></app-spinner-load>
+       [infiniteScrollDistance]="2"
+       [infiniteScrollThrottle]="150"
+       (scrolled)="onScroll()"
+       [scrollWindow]="false" 
+       class="comments-container mat-elevation-z8">
+    <h2>Comments</h2>
+    <div *ngFor="let comment of comments" class="comment">
+      <app-comment (loadingDelete)="loadingDelete($event)" (commentDeleted)="onCommentDeleted($event)" [loggedUserId]="loggedUserId" [comment]="comment"></app-comment>
+    </div>
+    <app-spinner-load *ngIf="loading"></app-spinner-load>
   </div>
 </div>
-<form (ngSubmit)="onSubmit()" #commentForm="ngForm" class="comment-form">
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="comment-form">
   <mat-form-field class="full-width">
     <mat-label>Add a comment</mat-label>
-    <input matInput [(ngModel)]="newComment" name="newComment" required />
+    <input matInput formControlName="newComment" required />
+    <mat-error *ngIf="commentForm.get('newComment')?.hasError('required')">Comment is required</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary" type="submit" [disabled]="!commentForm.form.valid">Post</button>
+  <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">Post</button>
 </form>
 <div *ngIf="completato" class="success-message">
   <p>Commento creato correttamente</p>

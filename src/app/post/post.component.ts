@@ -8,6 +8,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { PostService } from "../api/services";
 import { firstValueFrom } from "rxjs";
 import { Router } from "@angular/router";
+import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 
 const THUMBUP_ICON =
   `
@@ -22,7 +23,7 @@ const THUMBUP_ICON =
 @Component({
   selector: "app-post",
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, SpinnerLoadComponent],
   templateUrl: "./post.component.html",
   styleUrl: "./post.component.css",
 })
@@ -32,6 +33,7 @@ export class PostComponent {
   @Input()
   loggedUserId: number = -1;
   @Output() postDeleted = new EventEmitter<number>();
+  loadingDelete: boolean = false;
   constructor(
     private userService: UserService,
     private commentService: CommentService,
@@ -65,12 +67,15 @@ export class PostComponent {
     return this.loggedUserId === this.post.user?.id;
   }
   async deletePost() {
+    this.loadingDelete = true;
     await firstValueFrom(
       this.postService.deletePost({ postId: this.post.id ?? -1 })
-    ).then((deleted) => {
-      if (deleted?.deleted) {
-        this.postDeleted.emit(this.post.id);
-      }
-    });
+    )
+      .then((deleted) => {
+        if (deleted?.deleted) {
+          this.postDeleted.emit(this.post.id);
+        }
+      })
+      .finally(() => (this.loadingDelete = false));
   }
 }
