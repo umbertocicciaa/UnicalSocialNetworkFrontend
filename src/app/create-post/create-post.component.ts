@@ -33,8 +33,8 @@ export class CreatePostComponent {
   postForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null;
   loading: boolean = false;
-  error: boolean = false;
   completato: boolean = false;
+  errorePost: any;
 
   constructor(private fb: FormBuilder, private postService: PostService) {
     this.postForm = this.fb.group({
@@ -71,13 +71,14 @@ export class CreatePostComponent {
       })
     )
       .then(() => {
-        this.error = false;
         this.completato = true;
+        this.errorePost = false;
         this.postForm.reset();
         this.imagePreview = null;
       })
       .catch(() => {
-        this.error = true;
+        this.completato = false;
+        this.errorePost = true;
       })
       .finally(() => (this.loading = false));
   }

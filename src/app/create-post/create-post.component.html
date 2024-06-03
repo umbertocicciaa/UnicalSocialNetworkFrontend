@@ -14,10 +14,10 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid">Post</button>
   </form>
   <app-spinner-load *ngIf="loading"></app-spinner-load>
-  <div>
-    <p style="text-align: center; margin:10px" *ngIf="completato">Post creato correttamente</p>
+  <div *ngIf="completato" class="success-message">
+    <p>Post creato correttamente</p>
   </div>
-</div>
-<div *ngIf="error">
-  <app-error></app-error>
+  <div *ngIf="errorePost" class="error-message">
+    <p>Errore creaazione post</p>
+  </div>
 </div>

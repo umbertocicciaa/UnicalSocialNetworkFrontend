@@ -31,9 +31,9 @@ import { Router } from "@angular/router";
 })
 export class CreateTwitComponent {
   tweetForm: FormGroup;
-  error: boolean = false;
   loading: boolean = false;
   creato: boolean = false;
+  erroreTwit: any = false;
 
   constructor(
     private fb: FormBuilder,
@@ -61,10 +61,12 @@ export class CreateTwitComponent {
       .then(() => {
         this.loading = false;
         this.creato = true;
+        this.erroreTwit = false;
         this.tweetForm.reset();
       })
       .catch(() => {
-        this.error = true;
+        this.creato = false;
+        this.erroreTwit = true;
         this.loading = false;
       });
   }

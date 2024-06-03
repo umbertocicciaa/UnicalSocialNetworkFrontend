@@ -10,10 +10,10 @@
   <div *ngIf="loading">
     <app-spinner-load></app-spinner-load>
   </div>
-  <div>
-    <p style="text-align: center; margin:10px" *ngIf="creato">Post creato correttamente</p>
+  <div *ngIf="creato" class="success-message">
+      <p>Twit creato correttamente</p>
   </div>
-</div>
-<div *ngIf="error">
-  <app-error></app-error>
+  <div *ngIf="erroreTwit" class="error-message">
+      <p>Errore creaazione Twit</p>
+  </div>
 </div>

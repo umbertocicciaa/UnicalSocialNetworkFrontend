@@ -39,6 +39,7 @@ export class ExploreCommentComponent implements OnInit {
   completato: boolean = false;
   comments: CommentResponse[] = [];
   commentForm: FormGroup;
+  erroreCommento: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -78,7 +79,12 @@ export class ExploreCommentComponent implements OnInit {
       .then((comment: CommentCreatedResponse) => {
         this.comments.unshift(comment);
         this.completato = true;
+        this.erroreCommento = false;
         this.commentForm.reset();
+      })
+      .catch(() => {
+        this.completato = false;
+        this.erroreCommento = true;
       })
       .finally(() => (this.loading = false));
   }
