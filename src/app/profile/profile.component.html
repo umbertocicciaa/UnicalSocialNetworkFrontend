@@ -1,7 +1,7 @@
 <div class="profile-container" *ngIf="!error && !loadingPage">
     <div class="profile-header">
       <img *ngIf="image" [src]="image" alt="User Avatar" class="profile-avatar" />
-      <img *ngIf="!image"src ="https://via.placeholder.com/150" alt="User Avatar" class="avatar" >
+      <img *ngIf="!image"src ="../../assets/user-profile.png" alt="User Avatar" class="avatar" >
       <div class="profile-info">
         <div class="profile-username">
           <h2>{{ username }}</h2>

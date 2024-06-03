@@ -1,6 +1,6 @@
 <div class="comment-container">
     <img *ngIf="comment.createdByUserid?.avatar" [src]="'data:image/png;base64,' + comment.createdByUserid?.avatar" alt="User Avatar" class="avatar" />
-    <img *ngIf="!comment.createdByUserid?.avatar" src ="https://via.placeholder.com/150" alt="User Avatar" class="avatar" />
+    <img *ngIf="!comment.createdByUserid?.avatar" src ="../../assets/user-profile.png" alt="User Avatar" class="avatar" />
     <div class="comment-content">
         <span class="username">{{ comment.createdByUserid?.username }}</span>
         <span class="text">{{ comment.comment }}</span>

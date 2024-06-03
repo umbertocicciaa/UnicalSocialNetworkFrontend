@@ -1,7 +1,7 @@
 <div class="post">
     <div class="post-header" (click)="goToProfile(post.user?.profileName)">
       <img *ngIf="post.user?.profilePicture" [src]="'data:image/png;base64,' + post.user?.profilePicture" alt="User Avatar" class="avatar" />
-      <img *ngIf="!post.user?.profilePicture" src ="https://via.placeholder.com/150" alt="User Avatar" class="avatar" />
+      <img *ngIf="!post.user?.profilePicture" src ="../../assets/user-profile.png" alt="User Avatar" class="avatar" />
       <div class="user-info">
         <div class="username">{{ post.user?.profileName }}</div>
       </div>
