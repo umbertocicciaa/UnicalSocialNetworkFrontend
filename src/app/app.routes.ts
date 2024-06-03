@@ -17,6 +17,7 @@ import { ExploreCommentComponent } from "./explore-comment/explore-comment.compo
 import { MessageComponent } from "./message/message.component";
 import { UserPostComponent } from "./user-post/user-post.component";
 import { UserTwitComponent } from "./user-twit/user-twit.component";
+import { ChatComponent } from "./chat/chat.component";
 
 export const routes: Routes = [
   {
@@ -97,7 +98,12 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: "message/:userId",
+        path: "chat",
+        component: ChatComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: "chat/message",
         component: MessageComponent,
         canActivate: [authGuard],
       },

@@ -1,0 +1,20 @@
+
+<div class="search-container" *ngIf="!error">
+    <div 
+    infiniteScroll 
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="10"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false"
+    class="results-box" *ngIf="utentiSeguiti.length > 0">
+        <ul class="results-list">
+          <li *ngFor="let user of utentiSeguiti" >
+            <app-user-search-result (click)="goToChat(user.id)" [user]="user"></app-user-search-result>
+          </li>
+        </ul>
+    </div>
+    <app-spinner-load *ngIf="loading"></app-spinner-load>
+  </div>
+  <div  *ngIf="error">
+    <app-error></app-error>
+  </div>

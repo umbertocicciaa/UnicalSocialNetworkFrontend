@@ -1,56 +1,10 @@
-import { Component, Injectable } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
 import { CommonModule } from "@angular/common";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { WebSocketService } from "../api/services/websocket.service";
 import { FormsModule } from "@angular/forms";
-import { Stomp } from "@stomp/stompjs";
-import SockJS from "sockjs-client";
-
-@Injectable({ providedIn: "root" })
-export class ChatService {
-  private stompClient: any;
-  private messageSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<
-    ChatMessage[]
-  >([]);
-
-  constructor() {
-    this.initConnenctionSocket();
-  }
-
-  initConnenctionSocket() {
-    const url = "//localhost:8080/chat-socket";
-    const socket = new SockJS(url);
-    this.stompClient = Stomp.over(socket);
-  }
-
-  joinRoom(roomId: string) {
-    this.stompClient.connect({}, () => {
-      this.stompClient.subscribe(`/topic/${roomId}`, (messages: any) => {
-        const messageContent = JSON.parse(messages.body);
-        const currentMessage = this.messageSubject.getValue();
-        currentMessage.push(messageContent);
-        this.messageSubject.next(currentMessage);
-      });
-    });
-  }
-
-  sendMessage(roomId: string, chatMessage: ChatMessage) {
-    this.stompClient.send(
-      `/app/chat/${roomId}`,
-      {},
-      JSON.stringify(chatMessage)
-    );
-  }
-
-  getMessageSubject() {
-    return this.messageSubject.asObservable();
-  }
-}
-
-export interface ChatMessage {
-  message: string;
-  user: string;
-}
+import { Subscription, firstValueFrom } from "rxjs";
+import { ActivatedRoute } from "@angular/router";
+import { ConversationService } from "../api/services/conversation.service";
 
 @Component({
   selector: "app-message",
@@ -59,37 +13,54 @@ export interface ChatMessage {
   templateUrl: "./message.component.html",
   styleUrl: "./message.component.css",
 })
-export class MessageComponent {
-  messageInput: string = "";
-  userId: string = "";
-  messageList: any[] = [];
+export class MessageComponent implements OnInit, OnDestroy {
+  messages: any[] = [];
+  newMessage: string = "";
+  conversationId: number = -1;
+  recipientId: number = -1;
+  userId: number = -1;
+  private messagesSubscription!: Subscription;
 
   constructor(
-    private chatService: ChatService,
-    private route: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    this.userId = this.route.snapshot.params["userId"];
-    this.chatService.joinRoom("ABC");
-    this.lisenerMessage();
-  }
-
-  sendMessage() {
-    const chatMessage = {
-      message: this.messageInput,
-      user: this.userId,
-    } as ChatMessage;
-    this.chatService.sendMessage("ABC", chatMessage);
-    this.messageInput = "";
-  }
-
-  lisenerMessage() {
-    this.chatService.getMessageSubject().subscribe((messages: any) => {
-      this.messageList = messages.map((item: any) => ({
-        ...item,
-        message_side: item.user === this.userId ? "sender" : "receiver",
-      }));
+    private webSocketService: WebSocketService,
+    private route: ActivatedRoute,
+    private conversationService: ConversationService
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      this.recipientId = params["destId"];
+      this.userId = params["userId"];
     });
+    console.log(this.userId, this.recipientId);
+  }
+
+  async ngOnInit() {
+    await firstValueFrom(
+      this.conversationService.getConversations({
+        sender: this.userId,
+        reciver: this.recipientId,
+      })
+    ).then((id) => (this.conversationId = id));
+    this.messagesSubscription = this.webSocketService.messages$.subscribe(
+      (messages) => {
+        this.messages = messages;
+      }
+    );
+  }
+
+  sendMessage(): void {
+    if (this.newMessage.trim()) {
+      const message = {
+        text: this.newMessage,
+        recipient: { id: this.recipientId },
+      };
+      this.webSocketService.sendMessage(message);
+      this.newMessage = "";
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.messagesSubscription) {
+      this.messagesSubscription.unsubscribe();
+    }
   }
 }
