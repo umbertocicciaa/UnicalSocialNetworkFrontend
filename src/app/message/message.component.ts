@@ -30,7 +30,6 @@ export class MessageComponent implements OnInit, OnDestroy {
       this.recipientId = params["destId"];
       this.userId = params["userId"];
     });
-    console.log(this.userId, this.recipientId);
   }
 
   async ngOnInit() {
@@ -52,6 +51,7 @@ export class MessageComponent implements OnInit, OnDestroy {
       const message = {
         text: this.newMessage,
         recipient: { id: this.recipientId },
+        sender: { id: this.userId },
       };
       this.webSocketService.sendMessage(message);
       this.newMessage = "";
