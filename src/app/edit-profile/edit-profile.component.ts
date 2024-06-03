@@ -44,7 +44,6 @@ export class EditProfileComponent {
       {
         firstName: [""],
         lastName: [""],
-        email: [""],
         bio: [""],
         image: [null],
       },
@@ -52,7 +51,6 @@ export class EditProfileComponent {
         validators: this.atLeastOneRequiredValidator([
           "firstName",
           "lastName",
-          "email",
           "bio",
           "image",
         ]),
@@ -66,7 +64,6 @@ export class EditProfileComponent {
         const control = form.get(field);
         return control && control.value;
       });
-
       return atLeastOneFilled ? null : { atLeastOneRequired: true };
     };
   }
@@ -78,6 +75,8 @@ export class EditProfileComponent {
       this.imagePreview = reader.result;
     };
     this.selectedFile = file;
+    this.profileForm.patchValue({ image: file });
+    this.profileForm.get("image")!.updateValueAndValidity();
     reader.readAsDataURL(file);
   }
 

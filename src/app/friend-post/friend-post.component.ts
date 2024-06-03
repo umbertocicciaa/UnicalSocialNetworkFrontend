@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { PostComponent } from "../post/post.component";
 import { PostService } from "../api/services";
-import { PostResponse, UserResponse } from "../api/models";
+import { PostResponse } from "../api/models";
 import { firstValueFrom } from "rxjs";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { ErrorComponent } from "../error/error.component";
@@ -25,7 +25,6 @@ export class FriendPostComponent implements OnInit {
   posts: PostResponse[] = [];
   loading: boolean = false;
   error: boolean = false;
-  private currentUser: UserResponse = {};
   private page: number = 0;
 
   constructor(private postService: PostService) {}
@@ -46,6 +45,7 @@ export class FriendPostComponent implements OnInit {
         this.loading = false;
       });
   }
+
   async onScroll() {
     this.loading = true;
     this.page++;

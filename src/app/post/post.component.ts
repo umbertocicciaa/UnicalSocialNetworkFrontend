@@ -1,7 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { CommentService } from "../api/services/comment.service";
-import { UserService } from "../api/services/user.service";
 import { PostResponse } from "../api/models";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -29,14 +27,12 @@ const THUMBUP_ICON =
 })
 export class PostComponent {
   @Input()
-  post!: PostResponse;
+  post: PostResponse = {};
   @Input()
   loggedUserId: number = -1;
   @Output() postDeleted = new EventEmitter<number>();
   loadingDelete: boolean = false;
   constructor(
-    private userService: UserService,
-    private commentService: CommentService,
     private postService: PostService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
