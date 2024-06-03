@@ -7,7 +7,7 @@
        class="comments-container mat-elevation-z8">
     <h2>Comments</h2>
     <div *ngFor="let comment of comments" class="comment">
-      <app-comment (loadingDelete)="loadingDelete($event)" (commentDeleted)="onCommentDeleted($event)" [loggedUserId]="loggedUserId" [comment]="comment"></app-comment>
+      <app-comment (click)="goToProfile(comment.createdByUserid)" (loadingDelete)="loadingDelete($event)" (commentDeleted)="onCommentDeleted($event)" [loggedUserId]="loggedUserId" [comment]="comment"></app-comment>
     </div>
     <app-spinner-load *ngIf="loading"></app-spinner-load>
   </div>

@@ -15,6 +15,7 @@ import { CommentCreatedResponse, CommentResponse } from "../api/models";
 import { SpinnerLoadComponent } from "../spinner-load/spinner-load.component";
 import { CommentComponent } from "../comment/comment.component";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-explore-comment",
@@ -44,6 +45,7 @@ export class ExploreCommentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
     private commentService: CommentService
   ) {
@@ -116,5 +118,10 @@ export class ExploreCommentComponent implements OnInit {
 
   loadingDelete(loading: boolean) {
     this.loading = loading;
+  }
+
+  goToProfile(user: import("../api/models").CommentUserResponse | undefined) {
+    if (user?.username)
+      this.router.navigate(["/home/profile/" + user?.username]);
   }
 }
